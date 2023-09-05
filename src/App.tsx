@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from "react-router-dom"
-import logo from './logo.svg';
 import './App.css';
 import Landing from './routes/Landing/Landing';
 
@@ -11,7 +10,7 @@ function App() {
 		fetch(`http://${process.env.REACT_APP_SERVER_URL}/feeds`, {
 			method: 'GET',
 			mode: 'cors',
-			headers:{          
+			headers:{
 				'Accept': 'application/json',
 				'Content-Type': 'application/json'
 			}
@@ -19,7 +18,7 @@ function App() {
 			const isJson = res.headers.get('content-type')?.includes('application/json');
 			const data = isJson && await res.json();
 
-			console.log(data)
+			console.log("data: " + data)
 
 			if (!res.ok) {
 					const error = (data && data.error) || res.status;
