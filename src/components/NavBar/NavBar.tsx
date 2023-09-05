@@ -16,16 +16,14 @@ function classNames(...classes: String[]) {
 
 const NavBar = () => {
 	const [active, setActive] = useState("Home");
-	const [username, setUsername] = useState('');
-	const [password, setPassword] = useState('');
 	const [showModal, setShowModal] = useState(false);
 
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 
 	const navigate = useNavigate();
 
-	const handleLogin = async () => {
-		fetch(`http://${process.env.REACT_APP_SERVER_URL}${process.env.USER_BASE_URL}/signin`, {
+	const handleLogin = async (username: string, password: string) => {
+		fetch(`http://${process.env.REACT_APP_SERVER_URL}${process.env.REACT_APP_USER_BASE_URL}/signin`, {
 			method: 'POST',
 			mode: 'cors',
 			body: JSON.stringify({ username: username, password: password }),
@@ -42,6 +40,8 @@ const NavBar = () => {
 				return Promise.reject(error);
 			}
 
+			console.log(data);
+
 			navigate('/feed');
 		}).catch(error => {
 			console.error('There was an error!', error);
@@ -50,7 +50,8 @@ const NavBar = () => {
 
 	return (
 		<>
-			<Disclosure as="nav" className="bg-gray-800">
+			<LoginModal toggle={handleLogin} />
+			<Disclosure as="nav" className="bg-primary">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -100,7 +101,9 @@ const NavBar = () => {
 											key="signin"
 											className= 'text-white rounded-md p-1 text-sm font-medium'
 											onClick={() => {
-												setShowModal(true);
+												if (document) {
+													(document.getElementById('my_modal_1') as HTMLFormElement).showModal();
+												}
 											}}
 										>
 											Sign In
@@ -116,7 +119,6 @@ const NavBar = () => {
               </div>
             </div>
           </div>
-					{showModal ? <LoginModal toggle={setShowModal} /> : null}
 
           <Disclosure.Panel className="sm:hidden">
 						{isLoggedIn ? 

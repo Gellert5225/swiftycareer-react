@@ -1,73 +1,44 @@
-import React from "react";
-import { Fragment, useState } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
+import { useState } from 'react';
 
-const LoginModal = ({toggle = (t: boolean) => {}}) => {
-	let [isOpen, setIsOpen] = useState(true)
+const LoginModal = ({toggle = (username: string, password: string) => {}}) => {
+	const [username, setUsername] = useState("");
+	const [password, setPassword] = useState("");
+
+	const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setUsername(event.target.value);
+	}
+
+	const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setPassword(event.target.value);
+	}
+
 	return (
-		<Transition appear show={isOpen} as={Fragment}>
-        <Dialog
-          as="div"
-          className="fixed inset-0 z-10 overflow-y-auto"
-          onClose={() => {}}
-        >
-					<div className="fixed inset-0 bg-black/30" aria-hidden="true" />
-          <div className="min-h-screen px-4 text-center">
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0"
-              enterTo="opacity-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
-            >
-              <Dialog.Overlay className="fixed inset-0" />
-            </Transition.Child>
-
-            {/* This element is to trick the browser into centering the modal contents. */}
-            <span
-              className="inline-block h-screen align-middle"
-              aria-hidden="true"
-            >
-              &#8203;
-            </span>
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 scale-95"
-              enterTo="opacity-100 scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 scale-100"
-              leaveTo="opacity-0 scale-95"
-            >
-              <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
-                <Dialog.Title
-                  as="h3"
-                  className="text-lg font-medium leading-6 text-gray-900"
-                >
-                  Modal
-                </Dialog.Title>
-                <div className="mt-2">
-                  <p className="text-sm text-gray-500 border-t pt-2">
-                    This is a dialog box
-                  </p>
-                </div>
-
-                <div className="mt-4">
-                  <button
-                    type="button"
-                    className="inline-flex justify-center px-4 py-2 text-sm text-red-900 bg-red-100 border border-transparent rounded-md hover:bg-red-200 duration-300"
-                    onClick={() => toggle(false)}
-                  >
-                    Close
-                  </button>
-                </div>
-              </div>
-            </Transition.Child>
-          </div>
-        </Dialog>
-      </Transition>
+		<dialog id="my_modal_1" className="modal">
+			<div className="modal-box">
+				<h3 className="font-bold text-lg">Log In</h3>
+				<div className="form-control w-full max-w-full">
+					<label className="label">
+						<span className="label-text">Email</span>
+					</label>
+					<input type="text" placeholder="Email Adress" className="input input-bordered mb-1 w-full max-w-full" onChange={handleUsernameChange} />
+					<label className="label">
+						<span className="label-text">Password</span>
+					</label>
+					<input type="password" placeholder="Your Password" className="input input-bordered w-full max-w-full" onChange={handlePasswordChange} />
+					<label className="label text-sm">
+						<a href="/">Forgot Password?</a>
+					</label>
+				</div>
+				<div className="modal-action mt-1">
+					<form className="w-full" method="dialog">
+						<button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+							<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
+						</button>
+						<button className="btn btn-accent btn-block" onClick={() => {toggle(username, password)}}>Login</button>
+					</form>
+				</div>
+			</div>
+		</dialog>
 	);
 };
 
