@@ -1,7 +1,8 @@
 import { Fragment,  useState } from 'react';
 import { useNavigate } from "react-router-dom"
+import Cookies from 'js-cookie';
 
-import { Disclosure, Menu, Transition } from '@headlessui/react'
+import { Disclosure } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
  
 import Logo from '../../images/uniplus.png'
@@ -16,7 +17,6 @@ function classNames(...classes: String[]) {
 
 const NavBar = () => {
 	const [active, setActive] = useState("Home");
-	const [showModal, setShowModal] = useState(false);
 
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -27,7 +27,7 @@ const NavBar = () => {
 			method: 'POST',
 			mode: 'cors',
 			body: JSON.stringify({ username: username, password: password }),
-			headers:{          
+			headers: {          
 				'Accept': 'application/json',
 				'Content-Type': 'application/json'
 			}
@@ -35,6 +35,9 @@ const NavBar = () => {
 			const isJson = res.headers.get('content-type')?.includes('application/json');
 			const data = isJson && await res.json();
 			res.headers.forEach(console.log);
+
+			console.log(Cookies.get());
+			
 			if (!res.ok) {
 				const error = (data && data.error) || res.status;
 				return Promise.reject(error);

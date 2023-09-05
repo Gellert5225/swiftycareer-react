@@ -10,6 +10,7 @@ function App() {
 		fetch(`http://${process.env.REACT_APP_SERVER_URL}/feeds`, {
 			method: 'GET',
 			mode: 'cors',
+			credentials: 'include',
 			headers:{
 				'Accept': 'application/json',
 				'Content-Type': 'application/json'
@@ -26,8 +27,8 @@ function App() {
 			}
 
 			navigate('/feed');
-		}).catch(error => {
-			console.error('There was an error!', error);
+		}).catch((response) => {
+			console.error('There was an error!', response);
 		});
 	});
 
