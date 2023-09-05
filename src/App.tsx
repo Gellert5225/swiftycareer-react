@@ -16,21 +16,20 @@ function App() {
 				'Content-Type': 'application/json'
 			}
 		}).then(async res => {
-			const isJson = res.headers.get('content-type')?.includes('application/json');
-			const data = isJson && await res.json();
+			const data = await res.json();
 
-			console.log("data: " + data)
+			console.log(data);
 
 			if (!res.ok) {
-					const error = (data && data.error) || res.status;
+					const error = data || res;
 					return Promise.reject(error);
 			}
 
 			navigate('/feed');
-		}).catch((response) => {
-			console.error('There was an error!', response);
+		}).catch(err => {
+			console.error(err);
 		});
-	});
+	}, []);
 
   return (
     <div className="App">

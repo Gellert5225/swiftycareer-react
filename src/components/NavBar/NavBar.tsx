@@ -26,6 +26,7 @@ const NavBar = () => {
 		fetch(`http://${process.env.REACT_APP_SERVER_URL}${process.env.REACT_APP_USER_BASE_URL}/signin`, {
 			method: 'POST',
 			mode: 'cors',
+			credentials: 'include',
 			body: JSON.stringify({ username: username, password: password }),
 			headers: {          
 				'Accept': 'application/json',
