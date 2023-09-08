@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from "react-router-dom"
 import './App.css';
 import Landing from './routes/Landing/Landing';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Feed from './routes/Feed/Feed'
+import { AuthProvider } from './provider/AuthProvider'
+import { useEffect } from 'react';
 
 function App() {
-	const navigate = useNavigate();
 	useEffect(() => {
 		console.log(document.cookie);
 		fetch(`http://${process.env.REACT_APP_SERVER_URL}/feeds`, {
@@ -25,16 +26,20 @@ function App() {
 					return Promise.reject(error);
 			}
 
-			navigate('/feed');
 		}).catch(err => {
 			console.error(err);
 		});
 	}, []);
 
   return (
-    <div className="App">
-	  	<Landing />
-    </div>
+		<AuthProvider>
+			<BrowserRouter>
+				<Routes>
+					<Route index element={<Landing />} />
+					<Route path="feed" element={<Feed />} />
+				</Routes>
+			</BrowserRouter>
+		</AuthProvider>
   );
 }
 

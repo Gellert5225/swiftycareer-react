@@ -10,6 +10,7 @@ import Logo from '../../images/uniplus.png'
 import SearchBar from "../SearchBar/SearchBar";
 import navigation from './Navigations'
 import LoginModal from '../Modal/LoginModal';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 function classNames(...classes: String[]) {
   return classes.filter(Boolean).join(' ')
@@ -19,6 +20,8 @@ const NavBar = () => {
 	const [active, setActive] = useState("Home");
 
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+	const { setItem } = useLocalStorage();
 
 	const navigate = useNavigate();
 
@@ -45,6 +48,8 @@ const NavBar = () => {
 			}
 
 			console.log(data);
+
+			setItem("currentUser", JSON.stringify(data));
 
 			navigate('/feed');
 		}).catch(error => {
