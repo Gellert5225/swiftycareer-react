@@ -2,9 +2,9 @@ import { createContext } from "react";
 import { User } from '../data/User'
 
 interface AuthContext {
-  user: User | null;
+  user: User | undefined;
 }
 
 export const AuthContext = createContext<AuthContext>({
-  user: null
+  user: undefined
 });

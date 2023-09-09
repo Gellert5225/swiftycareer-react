@@ -3,7 +3,6 @@ import Landing from './routes/Landing/Landing';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Feed from './routes/Feed/Feed'
 import { AuthProvider } from './provider/AuthProvider'
-import { useEffect } from 'react';
 
 function App() {
 	// useEffect(() => {

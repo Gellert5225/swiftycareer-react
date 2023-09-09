@@ -1,4 +1,4 @@
-import { Fragment,  useState } from 'react';
+import { useContext,  useState } from 'react';
 import { useNavigate } from "react-router-dom"
 import Cookies from 'js-cookie';
 
@@ -11,6 +11,7 @@ import SearchBar from "../SearchBar/SearchBar";
 import navigation from './Navigations'
 import LoginModal from '../Modal/LoginModal';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
+import { AuthContext } from "../../context/AuthContext";
 
 function classNames(...classes: String[]) {
   return classes.filter(Boolean).join(' ')
@@ -19,9 +20,8 @@ function classNames(...classes: String[]) {
 const NavBar = () => {
 	const [active, setActive] = useState("Home");
 
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
-
 	const { setItem } = useLocalStorage();
+	const { user } = useContext(AuthContext);
 
 	const navigate = useNavigate();
 
@@ -49,7 +49,7 @@ const NavBar = () => {
 
 			console.log(data);
 
-			setItem("currentUser", JSON.stringify(data));
+			setItem("currentUser", JSON.stringify(data.info));
 
 			navigate('/feed');
 		}).catch(error => {
@@ -84,11 +84,11 @@ const NavBar = () => {
                     src={Logo}
                     alt="Your Company"
                   />
-									{isLoggedIn ? <div className="grow sm:grow-0"><SearchBar /></div> : <>Swifty Career</>}
+									{user ? <div className="grow sm:grow-0"><SearchBar /></div> : <>Swifty Career</>}
                 </div>
-								{isLoggedIn ? 
+								{user ? 
 									<div className="hidden sm:flex w-1/2">
-										{navigation.map((item) => (
+										{navigation.map((item, index) => (
 											<a
 												key={item.name}
 												href={item.href}
@@ -100,7 +100,7 @@ const NavBar = () => {
 												aria-current={item.current ? 'page' : undefined}
 											>
 												<img className='w-5 self-center' src={active === item.name ? item.logoSelected : item.logo} alt="" />
-												{item.name}
+												{index == 4 ? user.name : item.name}
 											</a>
 										))}
 									</div> 
@@ -130,9 +130,9 @@ const NavBar = () => {
           </div>
 
           <Disclosure.Panel className="sm:hidden">
-						{isLoggedIn ? 
+						{user ? 
 							<div className="space-y-1 px-2 pb-3 pt-2">
-								{navigation.map((item) => (
+								{navigation.map((item, index) => (
 									<Disclosure.Button
 										key={item.name}
 										as="a"
@@ -145,7 +145,7 @@ const NavBar = () => {
 										}}
 										aria-current={item.current ? 'page' : undefined}
 									>
-										{item.name}
+										{index == 4 ? user.name : item.name}
 									</Disclosure.Button>
 								))}
 							</div>
