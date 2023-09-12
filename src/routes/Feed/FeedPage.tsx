@@ -39,16 +39,16 @@ const FeedPage = () => {
 				<Navigate to="/" />
 			});
 		}
-	}, []);
+	}, [user?.id]);
 
 	if (!user) return <Navigate to="/" />
 
 	return (
 		<div className='bg-base-100'>
 			<NavBar />
-			<div className='bg-base-100 max-w-7xl mx-auto sm:px-6 lg:px-8 flex gap-2'>
+			<div className='bg-base-100 max-w-7xl mx-auto pt-2 sm:px-6 lg:px-8 flex'>
 				<div className='bg-red-100 grow-0 w-60 hidden md:block'>left</div>
-				<div className='grow'>
+				<div className='grow px-8'>
 					{feeds.map((feed, index) => (
 						<FeedCard
 							key={index}

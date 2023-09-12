@@ -19,6 +19,8 @@ function classNames(...classes: String[]) {
 
 const NavBar = () => {
 	const [active, setActive] = useState("Home");
+	const [openModal, setOpenModal] = useState<string | undefined>();
+	const props = { openModal, setOpenModal};
 
 	const { setItem } = useLocalStorage();
 	const { user } = useContext(AuthContext);
@@ -38,7 +40,6 @@ const NavBar = () => {
 		}).then(async res => {
 			const isJson = res.headers.get('content-type')?.includes('application/json');
 			const data = isJson && await res.json();
-			res.headers.forEach(console.log);
 			
 			if (!res.ok) {
 				const error = (data && data.error) || res.status;
@@ -57,8 +58,8 @@ const NavBar = () => {
 
 	return (
 		<>
-			<LoginModal toggle={handleLogin} />
-			<Disclosure as="nav" className="bg-primary">
+			<LoginModal toggle={handleLogin} open={openModal || ""} setOpen={setOpenModal}/>
+			<Disclosure as="nav" className="bg-mainBlue">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -107,11 +108,7 @@ const NavBar = () => {
 										<button
 											key="signin"
 											className= 'text-white rounded-md p-1 text-sm font-medium'
-											onClick={() => {
-												if (document) {
-													(document.getElementById('my_modal_1') as HTMLFormElement).showModal();
-												}
-											}}
+											onClick={() => props.setOpenModal('signin-modal')}
 										>
 											Sign In
 										</button>
