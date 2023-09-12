@@ -39,8 +39,6 @@ const NavBar = () => {
 			const isJson = res.headers.get('content-type')?.includes('application/json');
 			const data = isJson && await res.json();
 			res.headers.forEach(console.log);
-
-			console.log(Cookies.get());
 			
 			if (!res.ok) {
 				const error = (data && data.error) || res.status;

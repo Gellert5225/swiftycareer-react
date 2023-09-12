@@ -2,7 +2,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { useContext } from "react";
-import Feed from "./Feed/Feed";
+import Feed from "./Feed/FeedPage";
 import Landing from "./Landing/Landing";
 
 const Routes = () => {
