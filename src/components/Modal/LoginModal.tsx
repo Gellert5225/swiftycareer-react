@@ -1,6 +1,11 @@
 import { useState } from 'react';
+import { Button, Checkbox, Label, Modal, TextInput } from 'flowbite-react';
 
-const LoginModal = ({toggle = (username: string, password: string) => {}}) => {
+const LoginModal = (props: {
+	toggle: (username: string, password: string) => {},
+	open: string,
+	setOpen: React.Dispatch<React.SetStateAction<string | undefined>>
+}) => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 
@@ -13,32 +18,44 @@ const LoginModal = ({toggle = (username: string, password: string) => {}}) => {
 	}
 
 	return (
-		<dialog id="my_modal_1" className="modal">
-			<div className="modal-box">
-				<h3 className="font-bold text-lg">Log In</h3>
-				<div className="form-control w-full max-w-full">
-					<label className="label">
-						<span className="label-text">Email</span>
-					</label>
-					<input type="text" placeholder="Email Adress" className="input input-bordered mb-1 w-full max-w-full" onChange={handleUsernameChange} />
-					<label className="label">
-						<span className="label-text">Password</span>
-					</label>
-					<input type="password" placeholder="Your Password" className="input input-bordered w-full max-w-full" onChange={handlePasswordChange} />
-					<label className="label text-sm">
-						<a href="/">Forgot Password?</a>
-					</label>
+		<Modal className='' show={props.open === 'signin-modal'} size="md" popup onClose={() => props.setOpen(undefined)}>
+			<Modal.Header  />
+			<Modal.Body >
+				<div className="space-y-6">
+					<h3 className="text-xl font-medium text-white">Sign in to Swifty Career</h3>
+					<div>
+						<div className="mb-2 block">
+							<Label className='text-white' htmlFor="email" value="Your email" />
+						</div>
+						<TextInput onChange={handleUsernameChange} id="email" placeholder="name@company.com" required />
+					</div>
+					<div>
+						<div className="mb-2 block">
+							<Label className='text-white' htmlFor="password" value="Your password" />
+						</div>
+						<TextInput onChange={handlePasswordChange} id="password" type="password" required />
+					</div>
+					<div className="flex justify-between">
+						<div className="flex items-center gap-2">
+							<Checkbox id="remember" />
+							<Label className='text-white' htmlFor="remember">Remember me</Label>
+						</div>
+						<a href="/modal" className="text-sm text-white text-cyan-700 hover:underline dark:text-cyan-500">
+							Lost Password?
+						</a>
+					</div>
+					<div className="w-full">
+						<Button className='bg-mainBlueTint' onClick={() => {props.toggle(username, password); props.setOpen(undefined);}}>Log in to your account</Button>
+					</div>
+					<div className="flex justify-between text-sm font-medium text-gray-500 dark:text-gray-300">
+						Not registered?&nbsp;
+						<a href="/modal" className="text-cyan-700 hover:underline dark:text-cyan-500">
+							Create account
+						</a>
+					</div>
 				</div>
-				<div className="modal-action mt-1">
-					<form className="w-full" method="dialog">
-						<button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-							<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
-						</button>
-						<button className="btn btn-accent btn-block" onClick={() => {toggle(username, password)}}>Login</button>
-					</form>
-				</div>
-			</div>
-		</dialog>
+			</Modal.Body>
+		</Modal>
 	);
 };
 

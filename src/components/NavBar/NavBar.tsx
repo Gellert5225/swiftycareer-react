@@ -1,6 +1,5 @@
-import { Fragment,  useState } from 'react';
+import { useContext,  useState } from 'react';
 import { useNavigate } from "react-router-dom"
-import Cookies from 'js-cookie';
 
 import { Disclosure } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
@@ -10,6 +9,8 @@ import Logo from '../../images/uniplus.png'
 import SearchBar from "../SearchBar/SearchBar";
 import navigation from './Navigations'
 import LoginModal from '../Modal/LoginModal';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
+import { AuthContext } from "../../context/AuthContext";
 
 function classNames(...classes: String[]) {
   return classes.filter(Boolean).join(' ')
@@ -17,8 +18,11 @@ function classNames(...classes: String[]) {
 
 const NavBar = () => {
 	const [active, setActive] = useState("Home");
+	const [openModal, setOpenModal] = useState<string | undefined>();
+	const props = { openModal, setOpenModal};
 
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const { setItem } = useLocalStorage();
+	const { user, setUserData } = useContext(AuthContext);
 
 	const navigate = useNavigate();
 
@@ -35,9 +39,6 @@ const NavBar = () => {
 		}).then(async res => {
 			const isJson = res.headers.get('content-type')?.includes('application/json');
 			const data = isJson && await res.json();
-			res.headers.forEach(console.log);
-
-			console.log(Cookies.get());
 			
 			if (!res.ok) {
 				const error = (data && data.error) || res.status;
@@ -45,6 +46,9 @@ const NavBar = () => {
 			}
 
 			console.log(data);
+			setUserData(data.info);
+
+			setItem("currentUser", JSON.stringify(data.info));
 
 			navigate('/feed');
 		}).catch(error => {
@@ -54,8 +58,8 @@ const NavBar = () => {
 
 	return (
 		<>
-			<LoginModal toggle={handleLogin} />
-			<Disclosure as="nav" className="bg-primary">
+			<LoginModal toggle={handleLogin} open={openModal || ""} setOpen={setOpenModal}/>
+			<Disclosure as="nav" className="bg-mainBlue fixed w-full z-20 top-0 left-0">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -79,11 +83,11 @@ const NavBar = () => {
                     src={Logo}
                     alt="Your Company"
                   />
-									{isLoggedIn ? <div className="grow sm:grow-0"><SearchBar /></div> : <>Swifty Career</>}
+									{user ? <div className="grow sm:grow-0"><SearchBar /></div> : <>Swifty Career</>}
                 </div>
-								{isLoggedIn ? 
+								{user ? 
 									<div className="hidden sm:flex w-1/2">
-										{navigation.map((item) => (
+										{navigation.map((item, index) => (
 											<a
 												key={item.name}
 												href={item.href}
@@ -95,7 +99,7 @@ const NavBar = () => {
 												aria-current={item.current ? 'page' : undefined}
 											>
 												<img className='w-5 self-center' src={active === item.name ? item.logoSelected : item.logo} alt="" />
-												{item.name}
+												{index === 4 ? user.name : item.name}
 											</a>
 										))}
 									</div> 
@@ -104,11 +108,7 @@ const NavBar = () => {
 										<button
 											key="signin"
 											className= 'text-white rounded-md p-1 text-sm font-medium'
-											onClick={() => {
-												if (document) {
-													(document.getElementById('my_modal_1') as HTMLFormElement).showModal();
-												}
-											}}
+											onClick={() => props.setOpenModal('signin-modal')}
 										>
 											Sign In
 										</button>
@@ -125,9 +125,9 @@ const NavBar = () => {
           </div>
 
           <Disclosure.Panel className="sm:hidden">
-						{isLoggedIn ? 
+						{user ? 
 							<div className="space-y-1 px-2 pb-3 pt-2">
-								{navigation.map((item) => (
+								{navigation.map((item, index) => (
 									<Disclosure.Button
 										key={item.name}
 										as="a"
@@ -140,7 +140,7 @@ const NavBar = () => {
 										}}
 										aria-current={item.current ? 'page' : undefined}
 									>
-										{item.name}
+										{index === 4 ? user.name : item.name}
 									</Disclosure.Button>
 								))}
 							</div>
@@ -150,9 +150,7 @@ const NavBar = () => {
           </Disclosure.Panel>
         </>
       )}
-    </Disclosure>
-
-			
+    	</Disclosure>
 		</>
 	);
 }

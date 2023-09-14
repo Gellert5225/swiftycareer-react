@@ -9,10 +9,20 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color:rgb(42, 47, 63);
+  background-color:rgb(32, 37, 53);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.ql-editor {
+	padding: 10px 10px !important;
+	height: auto !important;
+}
+
+.ql-container {
+	height: auto !important;
+	border: none !important;
 }
