@@ -3,12 +3,14 @@ export class CurrentUser {
 	name: string = "";
 	email: string = "";
 	sessionId: string = "";
+	profile_picture = "";
 
-	constructor(id: string, name: string, email: string, sessionId: string) {
+	constructor(id: string, name: string, email: string, sessionId: string, profile_picture: string) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.sessionId = sessionId;
+		this.profile_picture = profile_picture;
 	}
 }
 

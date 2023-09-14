@@ -47,15 +47,15 @@ const FeedPage = () => {
 		<div className='bg-base-100'>
 			<NavBar />
 			<div className='bg-base-100 max-w-7xl mx-auto pt-2 sm:px-6 lg:px-8 flex'>
-				<div className='bg-red-100 grow-0 w-60 hidden md:block'>left</div>
-				<div className='grow px-8'>
+				<div className='bg-red-100 grow-0 shrink-0 w-60 hidden md:block'>left</div>
+				<div className='grow px-1 sm:px-8'>
 					{feeds.map((feed, index) => (
 						<FeedCard
 							key={index}
 							feed={feed} />
 					))}
 				</div>
-				<div className='bg-lime-100 grow-0 w-60 hidden lg:block'>right</div>
+				<div className='bg-lime-100 grow-0  shrink-0 w-60 hidden lg:block'>right</div>
 			</div>
 		</div>
 	);

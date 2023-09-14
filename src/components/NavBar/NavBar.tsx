@@ -1,6 +1,5 @@
 import { useContext,  useState } from 'react';
 import { useNavigate } from "react-router-dom"
-import Cookies from 'js-cookie';
 
 import { Disclosure } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
@@ -59,7 +58,7 @@ const NavBar = () => {
 	return (
 		<>
 			<LoginModal toggle={handleLogin} open={openModal || ""} setOpen={setOpenModal}/>
-			<Disclosure as="nav" className="bg-mainBlue">
+			<Disclosure as="nav" className="bg-mainBlue fixed w-full z-20 top-0 left-0">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -99,7 +98,7 @@ const NavBar = () => {
 												aria-current={item.current ? 'page' : undefined}
 											>
 												<img className='w-5 self-center' src={active === item.name ? item.logoSelected : item.logo} alt="" />
-												{index == 4 ? user.name : item.name}
+												{index === 4 ? user.name : item.name}
 											</a>
 										))}
 									</div> 
@@ -140,7 +139,7 @@ const NavBar = () => {
 										}}
 										aria-current={item.current ? 'page' : undefined}
 									>
-										{index == 4 ? user.name : item.name}
+										{index === 4 ? user.name : item.name}
 									</Disclosure.Button>
 								))}
 							</div>
@@ -150,9 +149,7 @@ const NavBar = () => {
           </Disclosure.Panel>
         </>
       )}
-    </Disclosure>
-
-			
+    	</Disclosure>
 		</>
 	);
 }

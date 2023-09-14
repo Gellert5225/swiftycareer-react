@@ -17,7 +17,7 @@ export const AuthProvider: React.FC<Props> = ({children}): JSX.Element => {
 		const localUser = getItem('currentUser');
 		if (localUser) {
 			const userObject = JSON.parse(localUser || "{}");
-			setUser(new CurrentUser(userObject._id, userObject.username, userObject.email, userObject.sessionId));
+			setUser(new CurrentUser(userObject._id, userObject.username, userObject.email, userObject.sessionId, userObject.profile_picture));
 		}
 	}, [user?.id])
 

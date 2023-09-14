@@ -1,18 +1,25 @@
 import './App.css';
 import Landing from './routes/Landing/Landing';
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import FeedPage from './routes/Feed/FeedPage'
 import { AuthProvider } from './provider/AuthProvider'
+import Layout from "./layouts/layout";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      { path: "/", element: <Landing /> },
+      { path: "/feed", element: <FeedPage /> },
+    ]
+  }
+]);
 
 function App() {
   return (
 		<AuthProvider>
-			<BrowserRouter>
-				<Routes>
-					<Route index element={<Landing />} />
-					<Route path="feed" element={<FeedPage />} />
-				</Routes>
-			</BrowserRouter>
+			<RouterProvider router={router} />
 		</AuthProvider>
   );
 }

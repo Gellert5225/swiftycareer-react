@@ -11,6 +11,7 @@ const Landing = () => {
 	return (
 		<>
 			 <NavBar />
+			 <div>This is landing page</div>
 		</>
 	);
 }
