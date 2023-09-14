@@ -22,7 +22,7 @@ const NavBar = () => {
 	const props = { openModal, setOpenModal};
 
 	const { setItem } = useLocalStorage();
-	const { user } = useContext(AuthContext);
+	const { user, setUserData } = useContext(AuthContext);
 
 	const navigate = useNavigate();
 
@@ -46,6 +46,7 @@ const NavBar = () => {
 			}
 
 			console.log(data);
+			setUserData(data.info);
 
 			setItem("currentUser", JSON.stringify(data.info));
 

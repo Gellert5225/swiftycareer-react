@@ -17,11 +17,18 @@ export const AuthProvider: React.FC<Props> = ({children}): JSX.Element => {
 		const localUser = getItem('currentUser');
 		if (localUser) {
 			const userObject = JSON.parse(localUser || "{}");
+			console.log('setting user');
 			setUser(new CurrentUser(userObject._id, userObject.username, userObject.email, userObject.sessionId, userObject.profile_picture));
+		} else {
+			console.log("no local user found");
 		}
 	}, [user?.id])
 
+	const setUserData = (data : CurrentUser) => {
+		setUser(data);
+	}
+
 	return (
-    <AuthContext.Provider value={{user}}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{user, setUserData}}>{children}</AuthContext.Provider>
   );
 }

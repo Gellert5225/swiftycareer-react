@@ -82,7 +82,7 @@ const FeedCard: FC<FeedProps> = ({feed}): JSX.Element => {
 					<p className="text-lightGray text-sm">{feed.author.position}</p>
 				</div>
 			</div>
-			<ReactQuill className="!p-0 grow min-h-full" theme="snow" modules={{ toolbar: null }} readOnly={true} value={feed.text} />
+			<ReactQuill className="!p-0 grow min-h-full text-white" theme="snow" modules={{ toolbar: null }} readOnly={true} value={feed.text} />
 			{feed.images.length > 0 ? 
 				<Carousel 
 					theme={customTheme} 

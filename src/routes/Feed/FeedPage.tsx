@@ -36,12 +36,15 @@ const FeedPage = () => {
 			}).catch(err => {
 				console.error(err);
 				removeItem('currentUser');
-				<Navigate to="/" />
+				return <Navigate to="/" />
 			});
 		}
 	}, [user?.id]);
 
-	if (!user) return <Navigate to="/" />
+	if (!user) {
+		console.log("no user!");
+		return <Navigate to="/" />
+	}
 
 	return (
 		<div className='bg-base-100'>

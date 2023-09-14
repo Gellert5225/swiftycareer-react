@@ -48,14 +48,13 @@ const CommentSection = ({ feedId } : { feedId: string }) => {
 				<CommentBox className="w-full grow" />
 			</div>
 			{commentList.map((v, i) => (
-				<div key={v._id} className="flex flex-row gap-2 items-center mb-2 w-full">
-					<img className="w-9 h-9 rounded-full" src={`http://${process.env.REACT_APP_SERVER_URL}/files/${user?.profile_picture}`} alt="123" />
+				<div key={v._id} className="flex flex-row gap-2 mb-2 w-full">
+					<img className="w-9 h-9 rounded-full" src={`http://${process.env.REACT_APP_SERVER_URL}/files/${v.author.profile_picture}`} alt="123" />
 					<div className="bg-menuBg grow rounded-lg">
 						<div className="px-[10px] pt-2">
 							<p className="text-white font-bold text-sm">Gellert</p>
 							<p className="text-lightGray text-xs">Software Engineer</p>
 						</div>
-						{/* <textarea className="max-h-fit w-full text-sm text-white resize-none overflow-hidden pb-1.5 pt-[5px] px-2.5 bg-mainBlue border-transparent focus:border-transparent focus:ring-0">{v.text}</textarea> */}
 						<ReactQuill className="!p-0 grow text-white" theme="snow" modules={{ toolbar: null }} readOnly={true} value={v.text} />
 					</div>
 				</div>
