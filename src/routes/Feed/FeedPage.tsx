@@ -9,7 +9,7 @@ import { useLocalStorage } from "../../hooks/useLocalStorage";
 const FeedPage = () => {
 	let [feeds, setFeeds] = useState<Array<Feed>>([]);
 	const { removeItem } = useLocalStorage();
-	const { user } = useContext(AuthContext);
+	const { user, setUserData } = useContext(AuthContext);
 
 	useEffect(() => {
 		if (user) {
@@ -23,20 +23,23 @@ const FeedPage = () => {
 				}
 			}).then(async res => {
 				const data = await res.json();
-
 				console.log(data);
 
 				if (!res.ok) {
+					console.error("Error when fetching feeds");
 					console.log(res);
 					const error = data || res;
-					return Promise.reject(error);
+					throw new Error(JSON.stringify(error));
 				}
 				
 				setFeeds(data.info);
 			}).catch(err => {
-				console.error(err);
-				removeItem('currentUser');
-				return <Navigate to="/" />
+				console.error(err.message);
+				const error = JSON.parse(err.message);
+				if (error.code === 403 || error.code === 401) {
+					removeItem('currentUser');
+					setUserData(undefined);
+				}
 			});
 		}
 	}, [user?.id]);

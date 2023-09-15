@@ -10,6 +10,7 @@ const CommentBox = ({ className, postComment } : { className: string, postCommen
 		if(e.key === 'Enter' && e.shiftKey === false) {
 			e.preventDefault();
 			postComment(value);
+			
 		}
 	}
 

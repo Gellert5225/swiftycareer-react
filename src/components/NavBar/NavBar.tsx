@@ -1,5 +1,5 @@
 import { useContext,  useState } from 'react';
-import { useNavigate } from "react-router-dom"
+import { Navigate, useNavigate } from "react-router-dom"
 
 import { Disclosure } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
@@ -11,6 +11,7 @@ import navigation from './Navigations'
 import LoginModal from '../Modal/LoginModal';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { AuthContext } from "../../context/AuthContext";
+import { CurrentUser } from '../../data/User';
 
 function classNames(...classes: String[]) {
   return classes.filter(Boolean).join(' ')
@@ -46,11 +47,11 @@ const NavBar = () => {
 			}
 
 			console.log(data);
-			setUserData(data.info);
+			setUserData(new CurrentUser(data.info._id, data.info.username, data.info.email, data.info.session_id, data.info.profile_picture));
 
 			setItem("currentUser", JSON.stringify(data.info));
 
-			navigate('/feed');
+			return <Navigate to="/feed" />
 		}).catch(error => {
 			console.error('There was an error!', error);
 		});
@@ -86,20 +87,19 @@ const NavBar = () => {
 									{user ? <div className="grow sm:grow-0"><SearchBar /></div> : <>Swifty Career</>}
                 </div>
 								{user ? 
-									<div className="hidden sm:flex w-1/2">
+									<div className="hidden sm:flex w-1/3">
 										{navigation.map((item, index) => (
 											<a
 												key={item.name}
 												href={item.href}
 												className={classNames(
 													active === item.name ? 'text-white' : 'text-gray-500 hover:text-white',
-													'flex-col flex items-center justify-end rounded-md p-1 text-sm font-medium w-full'
+													'flex items-center justify-end rounded-md p-1 text-sm font-medium w-full'
 												)}
 												onClick={() => setActive(item.name)}
 												aria-current={item.current ? 'page' : undefined}
 											>
 												<img className='w-5 self-center' src={active === item.name ? item.logoSelected : item.logo} alt="" />
-												{index === 4 ? user.name : item.name}
 											</a>
 										))}
 									</div> 
