@@ -1,9 +1,7 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { AuthContext } from "../context/AuthContext";
 import { CurrentUser } from '../data/User'
-import { json } from "stream/consumers";
-import { Navigate } from 'react-router-dom';
 
 type Props = {
   children?: React.ReactNode

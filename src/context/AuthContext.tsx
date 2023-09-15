@@ -1,12 +1,12 @@
 import { createContext } from "react";
 import { CurrentUser } from '../data/User'
 
-interface AuthContext {
+interface AuthContextInterface {
   user: CurrentUser | undefined;
 	setUserData: (data: CurrentUser) => void
 }
 
-export const AuthContext = createContext<AuthContext>({
+export const AuthContext = createContext<AuthContextInterface>({
   user: undefined,
 	setUserData: () => {},
 });
