@@ -2,6 +2,7 @@ import { useEffect, useState, useContext } from 'react';
 import { Navigate } from 'react-router-dom';
 import NavBar from '../../components/NavBar/NavBar';
 import FeedCard from '../../components/Feed/FeedCard';
+import PostFeedCard from '../../components/Feed/PostFeedCard';
 import { Feed } from '../../data/Feed';
 import { AuthContext } from "../../context/AuthContext";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
@@ -55,6 +56,7 @@ const FeedPage = () => {
 			<div className='bg-base-100 max-w-7xl mx-auto pt-2 sm:px-6 lg:px-8 flex'>
 				<div className='bg-red-100 grow-0 shrink-0 w-60 hidden md:block'>left</div>
 				<div className='grow px-1 sm:px-8'>
+					<PostFeedCard />
 					{feeds.map((feed, index) => (
 						<FeedCard
 							key={index}

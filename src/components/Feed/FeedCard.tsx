@@ -27,14 +27,42 @@ const FeedCard: FC<FeedProps> = ({feed}): JSX.Element => {
 
 	const handleLike = () => {
 		if (user) {
+			let amount = 0;
 			if (liked) {
+				amount = -1;
 				var index = feed.liked_user_ids.indexOf(user.id);
 				if (index !== -1) {
 					feed.liked_user_ids.splice(index, 1);
+					feed.like_count--;
 				}
 			} else {
+				amount = 1;
 				feed.liked_user_ids.push(user.id);
+				feed.like_count++;
 			}
+			console.log(user.id);
+			fetch(`http://${process.env.REACT_APP_SERVER_URL}/feeds/${feed._id}/likes`, {
+				method: 'PUT',
+				mode: 'cors',
+				credentials: 'include',
+				body: JSON.stringify({ userId: user.id, amount: amount }),
+				headers:{
+					'Accept': 'application/json',
+					'Content-Type': 'application/json'
+				}
+			}).then(async res => {
+				const data = await res.json();
+
+				console.log(data);
+
+				if (!res.ok) {
+					console.log(res);
+					const error = data || res;
+					throw new Error(error);
+				}
+			}).catch(err => {
+				console.error(err.message);
+			});
 		}
 		setLiked(!liked);
 	};
@@ -74,8 +102,8 @@ const FeedCard: FC<FeedProps> = ({feed}): JSX.Element => {
 	};
 
 	return (
-		<div className="flex flex-col justify-between mb-3 bg-mainBlue rounded-lg border border-gray-700">
-			<div className="bg-mainBlue flex flex-row grow px-2 pt-2 items-center">
+		<div className="flex flex-col justify-between mb-3 bg-mainBlue rounded-lg">
+			<div className="bg-transparent flex flex-row grow px-2 pt-2 items-center">
 				<img className="before:bg-mainBlue rounded-full w-10 h-10 align-middle" src={`http://${process.env.REACT_APP_SERVER_URL}/files/${feed.author.profile_picture}`} alt="profile" />
 				<div className="flex flex-col px-2">
 					<p className="text-white font-medium">{feed.author.display_name}</p>

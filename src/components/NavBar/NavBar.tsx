@@ -60,7 +60,7 @@ const NavBar = () => {
 	return (
 		<>
 			<LoginModal toggle={handleLogin} open={openModal || ""} setOpen={setOpenModal}/>
-			<Disclosure as="nav" className="bg-mainBlue fixed w-full z-20 top-0 left-0">
+			<Disclosure as="nav" className="bg-mainBlue fixed w-full z-20 top-0 left-0 drop-shadow-md">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
