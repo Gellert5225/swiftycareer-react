@@ -7,6 +7,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 import addImage from ".././../images/addImage.png";
+import deleteImage from ".././../images/delete.png";
 
 const PostFeedModal = (props: {
 	onPost: (form: FormData) => void
@@ -30,6 +31,12 @@ const PostFeedModal = (props: {
 		const unprivilegedEditor = quillRef.current!.makeUnprivilegedEditor(editor);
 
 		setFeedText(unprivilegedEditor.getHTML());
+	}
+
+	const removeImage = (index : number) => {
+		let copy = [...images];
+		copy.splice(index, 1);
+		setImages(copy);
 	}
 
 	const addImages = (event : ChangeEvent<HTMLInputElement>) => {
@@ -70,16 +77,21 @@ const PostFeedModal = (props: {
 				</div>
 				<div className='flex flex-wrap gap-2'>
 					{images.map((url, i) => (
-						<img key={i} className='item w-14 h-14' src={URL.createObjectURL(url)} />
+						<div key={i}>
+							<span onClick={() => removeImage(i)} className="hover:cursor-pointer leading-none absolute -translate-y-1/2 -translate-x-1/2">
+								<img className='w-4' src={deleteImage} alt="delete" />
+							</span>
+							<img className='item w-14 h-14' src={URL.createObjectURL(url)} alt="image" />
+						</div>
 					))}
 				</div>
 			</Modal.Body>
 			<Modal.Footer className="flex justify-between">
 				<div>
 					<label htmlFor="image-selector">
-						<img className='w-10 hover:cursor-pointer' src={addImage} alt="" />
+						<img className={`${"w-10"} ${images.length >= 5 ? "hover:cursor-not-allowed" : "hover:cursor-pointer"}`} src={addImage} alt="" />
 					</label>
-					<input className='hidden' id="image-selector" onChange={addImages} type="file" accept="image/*" />
+					<input disabled={images.length >= 5} className='hidden' id="image-selector" onChange={addImages} type="file" accept="image/*" />
 				</div>
 				<Button className='bg-mainBlueTint' onClick={clickPost}>Post</Button>
 			</Modal.Footer>
