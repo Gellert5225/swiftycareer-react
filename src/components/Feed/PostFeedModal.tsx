@@ -69,7 +69,7 @@ const PostFeedModal = (props: {
 	return (
 		<Modal show={props.open === 'post-feed-modal'} size="lg" popup onClose={() => props.setOpen(undefined)}>
 			<Modal.Header className="border-b">
-				Create a post
+				<h3 className='pl-2 pt-1'>Create a post</h3>
 			</Modal.Header>
 			<Modal.Body className='border-b border-gray-600'>
 				<div className="space-y-6">
@@ -86,14 +86,14 @@ const PostFeedModal = (props: {
 					))}
 				</div>
 			</Modal.Body>
-			<Modal.Footer className="flex justify-between">
+			<Modal.Footer className="flex items-center justify-between px-6 py-2">
 				<div>
 					<label htmlFor="image-selector">
 						<img className={`${"w-10"} ${images.length >= 5 ? "hover:cursor-not-allowed" : "hover:cursor-pointer"}`} src={addImage} alt="" />
 					</label>
 					<input disabled={images.length >= 5} className='hidden' id="image-selector" onChange={addImages} type="file" accept="image/*" />
 				</div>
-				<Button className='bg-mainBlueTint' onClick={clickPost}>Post</Button>
+				<button onClick={clickPost} type="button" className="text-white bg-mainBlueTint font-medium rounded-lg text-md px-5 mr-2 h-9 text-center">Post</button>
 			</Modal.Footer>
 		</Modal>
 	);

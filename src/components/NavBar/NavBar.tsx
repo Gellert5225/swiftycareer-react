@@ -82,7 +82,7 @@ const NavBar = () => {
                     src={Logo}
                     alt="Your Company"
                   />
-									{user ? <div className="grow sm:grow-0"><SearchBar /></div> : <>Swifty Career</>}
+									{user ? <div className="ml-8 grow sm:grow-0 h-9"><SearchBar /></div> : <>Swifty Career</>}
                 </div>
 								{user ? 
 									<div className="hidden sm:flex w-1/3">
