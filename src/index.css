@@ -17,6 +17,20 @@ code {
     monospace;
 }
 
+.post-feed .ql-editor {
+	font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    letter-spacing: 0.6px !important;
+
+	color: white;
+	height: auto;
+    border: none !important;
+    scrollbar-width: auto;
+    scrollbar-color: rgb(145, 154, 172) rgba(0,0,0,0);
+    overflow: auto;
+}
+
 .ql-editor {
 	padding: 10px 10px !important;
 	height: auto !important;
@@ -25,4 +39,39 @@ code {
 .ql-container {
 	height: auto !important;
 	border: none !important;
+}
+
+.ql-editor.ql-blank::before {
+    color: lightgray !important;
+    font-weight: 400 !important;
+    font-size: 16px !important;
+    letter-spacing: 0.6px !important;
+}
+
+.ql-toolbar {
+    border: none !important;
+}
+
+.ql-toolbar .ql-stroke {
+    fill: none  !important;
+    stroke: #fff  !important;
+}
+
+.ql-toolbar .ql-fill {
+    fill: #fff  !important;
+    stroke: none  !important;
+}
+
+.ql-toolbar .ql-picker {
+    color: #fff !important;
+}
+
+.ql-toolbar .ql-active .ql-stroke {
+	stroke: #06c !important;
+	fill: none !important;
+}
+
+.ql-toolbar .ql-active .ql-fill {
+	stroke: none !important;
+	fill: #06c !important;
 }
