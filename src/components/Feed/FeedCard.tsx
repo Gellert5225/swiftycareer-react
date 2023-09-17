@@ -104,7 +104,7 @@ const FeedCard: FC<FeedProps> = ({feed}): JSX.Element => {
 	return (
 		<div className="flex flex-col justify-between mb-3 bg-mainBlue rounded-lg">
 			<div className="bg-transparent flex flex-row grow px-2 pt-2 items-center">
-				<img className="before:bg-mainBlue rounded-full w-10 h-10 align-middle" src={`http://${process.env.REACT_APP_SERVER_URL}/files/${feed.author.profile_picture}`} alt="profile" />
+				<img className="before:bg-mainBlue rounded-full w-10 h-10 align-middle border border-lightGray" src={`http://${process.env.REACT_APP_SERVER_URL}/files/${feed.author.profile_picture}`} alt="profile" />
 				<div className="flex flex-col px-2">
 					<p className="text-white font-medium">{feed.author.display_name}</p>
 					<p className="text-lightGray text-sm">{feed.author.position}</p>

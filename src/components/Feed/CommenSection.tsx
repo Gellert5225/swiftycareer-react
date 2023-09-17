@@ -72,12 +72,12 @@ const CommentSection = ({ feedId } : { feedId: string }) => {
 	return (
 		<div className="flex flex-col px-4">
 			<div className="flex flex-row gap-2 items-center mb-2">
-				<img className="w-9 h-9 rounded-full" src={`http://${process.env.REACT_APP_SERVER_URL}/files/${user?.profile_picture}`} alt="123" />
+				<img className="w-9 h-9 rounded-full border border-lightGray" src={`http://${process.env.REACT_APP_SERVER_URL}/files/${user?.profile_picture}`} alt="123" />
 				<CommentBox className="w-full grow" postComment={postComment} />
 			</div>
 			{commentList.map((v, i) => (
 				<div key={v._id} className="flex flex-row gap-2 mb-2 w-full">
-					<img className="w-9 h-9 rounded-full" src={`http://${process.env.REACT_APP_SERVER_URL}/files/${v.author.profile_picture}`} alt="123" />
+					<img className="w-9 h-9 rounded-full border border-lightGray" src={`http://${process.env.REACT_APP_SERVER_URL}/files/${v.author.profile_picture}`} alt="123" />
 					<div className="bg-menuBg grow rounded-lg">
 						<div className="px-[10px] pt-2">
 							<p className="text-white font-bold text-sm">Gellert</p>
