@@ -14,7 +14,7 @@ const FeedPage = () => {
 
 	useEffect(() => {
 		if (user) {
-			fetch(`http://${process.env.REACT_APP_SERVER_URL}/feeds`, {
+			fetch(`http://${process.env.REACT_APP_FEED_URL}`, {
 				method: 'GET',
 				mode: 'cors',
 				credentials: 'include',

@@ -10,7 +10,7 @@ const PostFeedCard = () => {
 	const modalProps = { openPostFeed, setOpenPostFeed };
 
 	const postFeed = (form: FormData) => {
-		fetch(`http://${process.env.REACT_APP_SERVER_URL}${process.env.REACT_APP_FEED_BASE_URL}/`, {
+		fetch(`http://${process.env.REACT_APP_FEED_URL}/`, {
 			method: 'POST',
 			mode: 'cors',
 			credentials: 'include',
@@ -39,7 +39,11 @@ const PostFeedCard = () => {
 		<>
 			<PostFeedModal onPost={postFeed} open={openPostFeed || ""} setOpen={setOpenPostFeed} />
 			<div className="flex gap-2 items-center p-[15px] mb-3 bg-mainBlue rounded-lg">
-				<img className="rounded-full w-[60px] border border-lightGray" src={`http://${process.env.REACT_APP_SERVER_URL}/files/${user?.profile_picture}`} alt="profile" />
+				<img
+					className="rounded-full w-[60px] border border-lightGray" 
+					src={`http://${process.env.REACT_APP_FILE_URL}/${user?.profile_picture}`} 
+					alt="profile" 
+				/>
 				<div 
 					className="flex items-center w-full px-[15px] h-[38px] border rounded-full border-lightGray content-center text-lightGray font-semibold hover:cursor-pointer hover:bg-mainBlueDark"
 					onClick={() => modalProps.setOpenPostFeed("post-feed-modal")}

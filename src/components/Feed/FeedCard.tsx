@@ -41,7 +41,7 @@ const FeedCard: FC<FeedProps> = ({feed}): JSX.Element => {
 				feed.like_count++;
 			}
 			console.log(user.id);
-			fetch(`http://${process.env.REACT_APP_SERVER_URL}/feeds/${feed._id}/likes`, {
+			fetch(`http://${process.env.REACT_APP_FEED_URL}/${feed._id}/likes`, {
 				method: 'PUT',
 				mode: 'cors',
 				credentials: 'include',
@@ -104,13 +104,23 @@ const FeedCard: FC<FeedProps> = ({feed}): JSX.Element => {
 	return (
 		<div className="flex flex-col justify-between mb-3 bg-mainBlue rounded-lg">
 			<div className="bg-transparent flex flex-row grow px-2 pt-2 items-center">
-				<img className="before:bg-mainBlue rounded-full w-10 h-10 align-middle border border-lightGray" src={`http://${process.env.REACT_APP_SERVER_URL}/files/${feed.author.profile_picture}`} alt="profile" />
+				<img 
+					className="before:bg-mainBlue rounded-full w-10 h-10 align-middle border border-lightGray" 
+					src={`http://${process.env.REACT_APP_FILE_URL}/${feed.author.profile_picture}`} 
+					alt="profile" 
+				/>
 				<div className="flex flex-col px-2">
 					<p className="text-white font-medium">{feed.author.display_name}</p>
 					<p className="text-lightGray text-sm">{feed.author.position}</p>
 				</div>
 			</div>
-			<ReactQuill className="!p-0 grow min-h-full text-white" theme="snow" modules={{ toolbar: null }} readOnly={true} value={feed.text} />
+			<ReactQuill 
+				className="!p-0 grow min-h-full text-white" 
+				theme="snow" 
+				modules={{ toolbar: null }} 
+				readOnly={true} 
+				value={feed.text} 
+			/>
 			{feed.images.length > 0 ? 
 				<Carousel 
 					theme={customTheme} 
@@ -121,7 +131,12 @@ const FeedCard: FC<FeedProps> = ({feed}): JSX.Element => {
 					className="aspect-square grow rounded-none"
 				>
 					{feed.images.map((image, index) => (
-						<img key={image} src={`http://${process.env.REACT_APP_SERVER_URL}/files/${image}`} className="aspect-square object-cover" alt=""/>
+						<img 
+							key={image} 
+							src={`http://${process.env.REACT_APP_FILE_URL}/${image}`} 
+							className="aspect-square object-cover" 
+							alt=""
+						/>
 					))}
 				</Carousel> : <></>
 			}

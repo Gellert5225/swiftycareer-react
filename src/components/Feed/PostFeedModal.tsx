@@ -73,7 +73,14 @@ const PostFeedModal = (props: {
 			</Modal.Header>
 			<Modal.Body className='border-b border-gray-600'>
 				<div className="space-y-6">
-					<ReactQuill onChange={onQuillChange} ref={quillRef} className="post-feed !p-0 grow min-h-[200px] max-h-[600px] text-white !font-sans !text-xl" placeholder="What's on your mind?" modules={{ toolbar: quillToolbarModules }} value={feedText} />
+					<ReactQuill 
+						onChange={onQuillChange} 
+						ref={quillRef} 
+						className="post-feed !p-0 grow min-h-[200px] max-h-[600px] text-white !font-sans !text-xl" 
+						placeholder="What's on your mind?" 
+						modules={{ toolbar: quillToolbarModules }} 
+						value={feedText} 
+					/>
 				</div>
 				<div className='flex flex-wrap gap-2'>
 					{images.map((url, i) => (
@@ -89,11 +96,27 @@ const PostFeedModal = (props: {
 			<Modal.Footer className="flex items-center justify-between px-6 py-2">
 				<div>
 					<label htmlFor="image-selector">
-						<img className={`${"w-10"} ${images.length >= 5 ? "hover:cursor-not-allowed" : "hover:cursor-pointer"}`} src={addImage} alt="" />
+						<img 
+							className={`${"w-10"} ${images.length >= 5 ? "hover:cursor-not-allowed" : "hover:cursor-pointer"}`} 
+							src={addImage} 
+							alt=""
+						/>
 					</label>
-					<input disabled={images.length >= 5} className='hidden' id="image-selector" onChange={addImages} type="file" accept="image/*" />
+					<input 
+						disabled={images.length >= 5} 
+						className='hidden' id="image-selector" 
+						onChange={addImages} 
+						type="file" 
+						accept="image/*"
+					/>
 				</div>
-				<button onClick={clickPost} type="button" className="text-white bg-mainBlueTint font-medium rounded-lg text-md px-5 mr-2 h-9 text-center">Post</button>
+				<button 
+					onClick={clickPost} 
+					type="button" 
+					className="text-white bg-mainBlueTint font-medium rounded-lg text-md px-5 mr-2 h-9 text-center"
+				>
+					Post
+				</button>
 			</Modal.Footer>
 		</Modal>
 	);
