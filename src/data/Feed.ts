@@ -2,6 +2,7 @@ import { User } from "./User";
 
 export class Feed {
 	constructor(public _id: string = "",
+				public created_at: number = 0.0,
 				public like_count: number = 0,
 				public comment_count: number = 0,
 				public share_count: number = 0,
@@ -13,6 +14,7 @@ export class Feed {
 				public comments: Array<string> = [],
 				public author: User) {
 		this._id = _id;
+		this.created_at = created_at;
 		this.like_count = like_count;
 		this.comment_count = comment_count;
 		this.share_count = share_count;

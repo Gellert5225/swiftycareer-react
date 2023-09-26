@@ -15,6 +15,8 @@ import commentImage from '../../images/comment.png'
 import repostImage from '../../images/repost.png'
 import repostedImage from '../../images/repost-selected.png'
 
+import { getTimeDiff } from '../../utils/date'
+
 const FeedCard: FC<FeedProps> = ({feed}): JSX.Element => {
 	const [liked, setLiked] = useState(false);
 	const [commentSection, setCommentSection] = useState(<></>);
@@ -110,8 +112,9 @@ const FeedCard: FC<FeedProps> = ({feed}): JSX.Element => {
 					alt="profile" 
 				/>
 				<div className="flex flex-col px-2">
-					<p className="text-white font-medium">{feed.author.display_name}</p>
-					<p className="text-lightGray text-sm">{feed.author.position}</p>
+					<p className="text-white font-semibold text-sm">{feed.author.display_name}</p>
+					<p className="text-lightGray text-xs">{feed.author.position}</p>
+					<p className="text-lightGray text-xs">{getTimeDiff(feed.created_at)}</p>
 				</div>
 			</div>
 			<ReactQuill 
