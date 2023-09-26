@@ -1,6 +1,5 @@
 import { useEffect, useState, useContext } from 'react';
 import { Navigate } from 'react-router-dom';
-import NavBar from '../../components/NavBar/NavBar';
 import FeedCard from '../../components/Feed/FeedCard';
 import PostFeedCard from '../../components/Feed/PostFeedCard';
 import { Feed } from '../../data/Feed';
@@ -52,7 +51,6 @@ const FeedPage = () => {
 
 	return (
 		<div className='bg-base-100'>
-			<NavBar />
 			<div className='bg-base-100 max-w-6xl mx-auto pt-2 sm:px-6 lg:px-8 flex'>
 				<div className='bg-red-100 grow-0 shrink-0 w-60 hidden md:block'>left</div>
 				<div className='grow px-1 sm:px-8'>
@@ -63,7 +61,7 @@ const FeedPage = () => {
 							feed={feed} />
 					))}
 				</div>
-				<div className='bg-lime-100 grow-0  shrink-0 w-60 hidden lg:block'>right</div>
+				<div className='bg-lime-100 grow-0 shrink-0 w-60 hidden lg:block'>right</div>
 			</div>
 		</div>
 	);

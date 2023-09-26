@@ -1,5 +1,5 @@
 import { useContext,  useState } from 'react';
-import { Navigate, useNavigate } from "react-router-dom"
+import { Navigate, useNavigate, Link } from "react-router-dom"
 
 import { Disclosure } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
@@ -18,7 +18,7 @@ function classNames(...classes: String[]) {
 }
 
 const NavBar = () => {
-	const [active, setActive] = useState("Home");
+	const [active, setActive] = useState("feed");
 	const [openModal, setOpenModal] = useState<string | undefined>();
 	const props = { openModal, setOpenModal };
 
@@ -87,9 +87,9 @@ const NavBar = () => {
 								{user ? 
 									<div className="hidden sm:flex w-1/3">
 										{navigation.map((item, index) => (
-											<a
+											<Link
 												key={item.name}
-												href={item.href}
+												to={item.href}
 												className={classNames(
 													active === item.name ? 'text-white' : 'text-gray-500 hover:text-white',
 													'flex items-center justify-end rounded-md p-1 text-sm font-medium w-full'
@@ -98,7 +98,7 @@ const NavBar = () => {
 												aria-current={item.current ? 'page' : undefined}
 											>
 												<img className='w-5 self-center' src={active === item.name ? item.logoSelected : item.logo} alt="" />
-											</a>
+											</Link>
 										))}
 									</div> 
 									: 

@@ -14,28 +14,28 @@ import profile from '../../images/default_profile_image.png'
 
 const navigation = [
 	{
-		name: 'Home', 
+		name: 'feed', 
 		href: '/feed', 
 		current: true, 
 		logo: homeLogo,
 		logoSelected: homeLogoSelected
 	},
 	{
-		name: 'Jobs', 
+		name: 'job', 
 		href: '/job', 
 		current: false, 
 		logo: jobLogo,
 		logoSelected: jobLogoSelected
 	},
 	{
-		name: 'Connections', 
+		name: 'connection', 
 		href: '/connection', 
 		current: false, 
 		logo: friendLogo,
 		logoSelected: friendLogoSelected
 	},
 	{
-		name: 'Notifications', 
+		name: 'notification', 
 		href: '/notification', 
 		current: false,
 		logo: alertLogo,

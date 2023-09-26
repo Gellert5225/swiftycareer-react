@@ -4,6 +4,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import FeedPage from './routes/Feed/FeedPage'
 import { AuthProvider } from './provider/AuthProvider'
 import Layout from "./layouts/layout";
+import JobPage from './routes/Job/JobPage';
 
 const router = createBrowserRouter([
   {
@@ -12,6 +13,7 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Landing /> },
       { path: "/feed", element: <FeedPage /> },
+			{ path: "/job", element: <JobPage /> },
     ]
   }
 ]);
