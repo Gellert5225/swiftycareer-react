@@ -20,6 +20,7 @@ function classNames(...classes: String[]) {
 const NavBar = () => {
 	const [active, setActive] = useState("feed");
 	const [openModal, setOpenModal] = useState<string | undefined>();
+	const [error, setError] = useState<Error | undefined>();
 	const props = { openModal, setOpenModal };
 
 	const { setItem } = useLocalStorage();
@@ -40,24 +41,27 @@ const NavBar = () => {
 			const data = isJson && await res.json();
 			
 			if (!res.ok) {
-				const error = (data && data.error) || res.status;
-				return Promise.reject(error);
+				console.error("Error when logging in");
+				console.log(res);
+				const error = data || res;
+				throw new Error(JSON.stringify(error));
 			}
 
 			console.log(data);
 			setUserData(new CurrentUser(data.info._id, data.info.username, data.info.email, data.info.session_id, data.info.profile_picture));
 
 			setItem("currentUser", JSON.stringify(data.info));
-
+			setOpenModal(undefined);
 			return <Navigate to="/feed" />
-		}).catch(error => {
-			console.error('There was an error!', error);
+		}).catch(err => {
+			console.error(err.message);
+			setError(err);
 		});
 	}
 
 	return (
 		<>
-			<LoginModal toggle={handleLogin} open={openModal || ""} setOpen={setOpenModal}/>
+			<LoginModal toggle={handleLogin} open={openModal || ""} setOpen={setOpenModal} error={error} setError={setError}/>
 			<Disclosure as="nav" className="bg-mainBlue fixed w-full z-20 top-0 left-0 drop-shadow-md">
       {({ open }) => (
         <>

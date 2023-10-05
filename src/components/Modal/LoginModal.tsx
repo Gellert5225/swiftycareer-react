@@ -1,10 +1,13 @@
 import { useState } from 'react';
-import { Button, Checkbox, Label, Modal, TextInput } from 'flowbite-react';
+import { Button, Checkbox, Label, Modal, TextInput, Alert } from 'flowbite-react';
+import { setServers } from 'dns';
 
 const LoginModal = (props: {
 	toggle: (username: string, password: string) => {},
 	open: string,
-	setOpen: React.Dispatch<React.SetStateAction<string | undefined>>
+	setOpen: React.Dispatch<React.SetStateAction<string | undefined>>,
+	error: Error | undefined,
+	setError: React.Dispatch<React.SetStateAction<Error | undefined>>
 }) => {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
@@ -23,6 +26,19 @@ const LoginModal = (props: {
 			<Modal.Body >
 				<div className="space-y-6">
 					<h3 className="text-xl font-medium text-white">Sign in to Swifty Career</h3>
+					{ props.error ?
+						<Alert
+							color="failure"
+							onDismiss={() => props.setError(undefined)}
+						>
+							<span>
+								<p>
+									{ JSON.parse(props.error.message) ? JSON.parse(props.error.message).error : props.error.message }
+								</p>
+							</span>
+						</Alert>
+						: <></>
+					}
 					<div>
 						<div className="mb-2 block">
 							<Label className='text-white' htmlFor="email" value="Your email" />
@@ -45,7 +61,7 @@ const LoginModal = (props: {
 						</a>
 					</div>
 					<div className="w-full">
-						<Button className='bg-mainBlueTint' onClick={() => {props.toggle(username, password); props.setOpen(undefined);}}>Log in to your account</Button>
+						<Button className='bg-mainBlueTint' onClick={() => {props.toggle(username, password);}}>Log in to your account</Button>
 					</div>
 					<div className="flex justify-between text-sm font-medium text-gray-500 dark:text-gray-300">
 						Not registered?&nbsp;
