@@ -9,6 +9,7 @@ import Logo from '../../images/uniplus.png'
 import SearchBar from "../SearchBar/SearchBar";
 import navigation from './Navigations'
 import LoginModal from '../Modal/LoginModal';
+import SignupModal from '../Modal/SignupModal';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { AuthContext } from "../../context/AuthContext";
 import { CurrentUser } from '../../data/User';
@@ -59,9 +60,43 @@ const NavBar = () => {
 		});
 	}
 
+	const handleSignUp = async (email: string, username: string, password: string) => {
+		fetch(`http://${process.env.REACT_APP_USER_URL}/signup`, {
+			method: 'POST',
+			mode: 'cors',
+			credentials: 'include',
+			body: JSON.stringify({ username: username, email: email, password: password }),
+			headers: {          
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			}
+		}).then(async res => {
+			const isJson = res.headers.get('content-type')?.includes('application/json');
+			const data = isJson && await res.json();
+			
+			if (!res.ok) {
+				console.error("Error when signing up");
+				console.log(res);
+				const error = data || res;
+				throw new Error(JSON.stringify(error));
+			}
+
+			console.log(data);
+			setUserData(new CurrentUser(data.info._id, data.info.username, data.info.email, data.info.session_id, data.info.profile_picture));
+
+			setItem("currentUser", JSON.stringify(data.info));
+			setOpenModal(undefined);
+			return <Navigate to="/feed" />
+		}).catch(err => {
+			console.error(err.message);
+			setError(err);
+		});
+	}	
+
 	return (
 		<>
 			<LoginModal toggle={handleLogin} open={openModal || ""} setOpen={setOpenModal} error={error} setError={setError}/>
+			<SignupModal toggle={handleSignUp} open={openModal || ""} setOpen={setOpenModal} error={error} setError={setError}/>
 			<Disclosure as="nav" className="bg-mainBlue fixed w-full z-20 top-0 left-0 drop-shadow-md">
       {({ open }) => (
         <>
@@ -117,6 +152,7 @@ const NavBar = () => {
 										<button
 											key="signup"
 											className= 'text-white rounded-md p-1 text-sm font-medium'
+											onClick={() => props.setOpenModal('signup-modal')}
 										>
 											Sign Up
 										</button>

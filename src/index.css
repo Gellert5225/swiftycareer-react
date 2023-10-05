@@ -17,6 +17,10 @@ code {
     monospace;
 }
 
+input:autofill {
+	background: transparent !important; /* or any other */
+}
+
 .post-feed .ql-editor {
 	font-family: 'Open Sans', sans-serif;
     font-weight: 400;
