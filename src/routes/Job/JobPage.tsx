@@ -7,6 +7,10 @@ import { JobTypes, ExperienceLevel, DatePosted, PayRate } from './JobFilter';
 const JobPage = () => {
 	const { removeItem } = useLocalStorage();
 	const { user, setUserData } = useContext(AuthContext);
+	const [ jobTypes, setJobTypes ] = useState<Array<string>>([]);
+	const [ expLevel, setExpLevel ] = useState<Array<string>>([]);
+	const [ postDate, setPostDate ] = useState("any");
+	const [ payRate, setPayRate ] = useState("any");
 
 	useEffect(() => {
 		

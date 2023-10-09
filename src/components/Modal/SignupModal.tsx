@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Label, Modal, TextInput, Alert } from 'flowbite-react';
+import { Button, Modal, Alert } from 'flowbite-react';
 import FloatingInput from '../Input/FloatingInput';
 
 const SignupModal = (props: {

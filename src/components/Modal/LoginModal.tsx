@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Checkbox, Label, Modal, TextInput, Alert } from 'flowbite-react';
+import { Button, Checkbox, Label, Modal, Alert } from 'flowbite-react';
 import FloatingInput from '../Input/FloatingInput';
 
 const LoginModal = (props: {
@@ -43,7 +43,7 @@ const LoginModal = (props: {
 					<FloatingInput label={"Password"} error={undefined} onChange={handlePasswordChange} />
 					<div className="flex justify-between">
 						<div className="flex items-center gap-2">
-							<Checkbox id="remember" />
+							<Checkbox id="remember" className='focus:outline-none focus:ring-0 focus:ring-offset-0' />
 							<Label className='text-white' htmlFor="remember">Remember me</Label>
 						</div>
 						<a href="/modal" className="text-sm text-white text-cyan-700 hover:underline dark:text-cyan-500">

@@ -1,5 +1,3 @@
-import { createContext, useContext } from 'react';
-
 const FloatingInput = (props: {
 	label: string,
 	error: string | undefined,
