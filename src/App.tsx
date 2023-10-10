@@ -5,6 +5,7 @@ import FeedPage from './routes/Feed/FeedPage'
 import { AuthProvider } from './provider/AuthProvider'
 import Layout from "./layouts/layout";
 import JobPage from './routes/Job/JobPage';
+import OnBoarding from './routes/OnBoarding/OnBoarding';
 
 const router = createBrowserRouter([
   {
@@ -12,6 +13,7 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       { path: "/", element: <Landing /> },
+			{ path: "/onboarding", element: <OnBoarding /> },
       { path: "/feed", element: <FeedPage /> },
 			{ path: "/job", element: <JobPage /> },
     ]

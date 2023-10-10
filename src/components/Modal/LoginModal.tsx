@@ -21,7 +21,7 @@ const LoginModal = (props: {
 	}
 
 	return (
-		<Modal className='' show={props.open === 'signin-modal'} size="md" popup onClose={() => props.setOpen(undefined)}>
+		<Modal show={props.open === 'signin-modal'} size="md" popup onClose={() => props.setOpen(undefined)}>
 			<Modal.Header  />
 			<Modal.Body >
 				<div className="space-y-6">
@@ -39,8 +39,18 @@ const LoginModal = (props: {
 						</Alert>
 						: <></>
 					}
-					<FloatingInput label={"Username"} error={undefined} onChange={handleUsernameChange} />
-					<FloatingInput label={"Password"} error={undefined} onChange={handlePasswordChange} />
+					<FloatingInput 
+						label={"Username"} 
+						error={undefined} 
+						onChange={handleUsernameChange} 
+						labelBgColor="bg-gray-700"
+					/>
+					<FloatingInput 
+						label={"Password"} 
+						error={undefined} 
+						onChange={handlePasswordChange} 
+						labelBgColor="bg-gray-700" 
+					/>
 					<div className="flex justify-between">
 						<div className="flex items-center gap-2">
 							<Checkbox id="remember" className='focus:outline-none focus:ring-0 focus:ring-offset-0' />
@@ -51,7 +61,9 @@ const LoginModal = (props: {
 						</a>
 					</div>
 					<div className="w-full">
-						<Button className='bg-mainBlueTint' onClick={() => {props.toggle(username, password);}}>Log in to your account</Button>
+						<Button className='bg-mainBlueTint' onClick={() => {props.toggle(username, password);}}>
+							Log in to your account
+						</Button>
 					</div>
 					{/* <div className="flex justify-between text-sm font-medium text-gray-500 dark:text-gray-300">
 						Not registered?&nbsp;

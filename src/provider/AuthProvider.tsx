@@ -12,13 +12,13 @@ export const AuthProvider: React.FC<Props> = ({children}): JSX.Element => {
 
 	const localUser = localStorage.getItem('currentUser');
 	const userObject = JSON.parse(localUser || "{}");
-	const [user, setUser] = useState<CurrentUser | undefined>(localUser ? new CurrentUser(userObject._id, userObject.username, userObject.email, userObject.session_id, userObject.profile_picture) : undefined);
+	const [user, setUser] = useState<CurrentUser | undefined>(localUser ? new CurrentUser(userObject._id, userObject.username, userObject.email, userObject.session_id, userObject.profile_picture, userObject.on_board) : undefined);
 
 	useEffect(() => {
 		const localUser = getItem('currentUser');
 		if (localUser) {
 			const userObject = JSON.parse(localUser || "{}");
-			setUser(new CurrentUser(userObject._id, userObject.username, userObject.email, userObject.session_id, userObject.profile_picture));
+			setUser(new CurrentUser(userObject._id, userObject.username, userObject.email, userObject.session_id, userObject.profile_picture, userObject.on_board));
 		} else {
 			console.log("no local user found");
 			setUser(undefined);

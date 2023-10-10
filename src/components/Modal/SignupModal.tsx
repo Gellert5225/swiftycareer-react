@@ -36,7 +36,7 @@ const SignupModal = (props: {
 	}
 
 	return (
-		<Modal className='' show={props.open === 'signup-modal'} size="md" popup onClose={() => props.setOpen(undefined)}>
+		<Modal show={props.open === 'signup-modal'} size="md" popup onClose={() => props.setOpen(undefined)}>
 			<Modal.Header  />
 			<Modal.Body >
 				<div className="space-y-6">
@@ -48,16 +48,40 @@ const SignupModal = (props: {
 						>
 							<span>
 								<p>
-									{ JSON.parse(props.error.message) ? JSON.parse(props.error.message).error : props.error.message }
+									{ 
+										JSON.parse(props.error.message) ? 
+										JSON.parse(props.error.message).error : 
+										props.error.message 
+									}
 								</p>
 							</span>
 						</Alert>
 						: <></>
 					}
-					<FloatingInput label={"Email"} error={email.length !== 0 ? undefined : "Please enter your email"} onChange={handleEmailChange} />
-					<FloatingInput label={"Username"} error={username.length !== 0 ? undefined : "Please enter a username"} onChange={handleUsernameChange} />
-					<FloatingInput label={"Password"} error={password.length >= 6 ? undefined : "Password must be at least 6 characters"} onChange={handlePasswordChange} />
-					<FloatingInput label={"Repeat Password"} error={repeatPw === password ? undefined : "Password does not match"} onChange={handleRepeatPasswordChange} />
+					<FloatingInput 
+						label={"Email"} 
+						error={email.length !== 0 ? undefined : "Please enter your email"} 
+						onChange={handleEmailChange} 
+						labelBgColor="bg-gray-700" 
+					/>
+					<FloatingInput 
+						label={"Username"} 
+						error={username.length !== 0 ? undefined : "Please enter a username"} 
+						onChange={handleUsernameChange} 
+						labelBgColor="bg-gray-700" 
+					/>
+					<FloatingInput 
+						label={"Password"} 
+						error={password.length >= 6 ? undefined : "Password must be at least 6 characters"} 
+						onChange={handlePasswordChange} 
+						labelBgColor="bg-gray-700" 
+					/>
+					<FloatingInput 
+						label={"Repeat Password"} 
+						error={repeatPw === password ? undefined : "Password does not match"} 
+						onChange={handleRepeatPasswordChange} 
+						labelBgColor="bg-gray-700" 
+					/>
 					<div className="w-full">
 						<Button className='bg-mainBlueTint' onClick={signUp}>Sign Up</Button>
 					</div>

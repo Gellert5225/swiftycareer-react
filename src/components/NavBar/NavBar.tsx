@@ -49,7 +49,7 @@ const NavBar = () => {
 			}
 
 			console.log(data);
-			setUserData(new CurrentUser(data.info._id, data.info.username, data.info.email, data.info.session_id, data.info.profile_picture));
+			setUserData(new CurrentUser(data.info._id, data.info.username, data.info.email, data.info.session_id, data.info.profile_picture, data.info.on_board));
 
 			setItem("currentUser", JSON.stringify(data.info));
 			setOpenModal(undefined);
@@ -82,7 +82,7 @@ const NavBar = () => {
 			}
 
 			console.log(data);
-			setUserData(new CurrentUser(data.info._id, data.info.username, data.info.email, data.info.session_id, data.info.profile_picture));
+			setUserData(new CurrentUser(data.info._id, data.info.username, data.info.email, data.info.session_id, data.info.profile_picture, data.info.on_board));
 
 			setItem("currentUser", JSON.stringify(data.info));
 			setOpenModal(undefined);
@@ -124,22 +124,24 @@ const NavBar = () => {
 									{user ? <div className="ml-8 grow sm:grow-0 h-9"><SearchBar /></div> : <>Swifty Career</>}
                 </div>
 								{user ? 
-									<div className="hidden sm:flex w-1/3">
-										{navigation.map((item, index) => (
-											<Link
-												key={item.name}
-												to={item.href}
-												className={classNames(
-													active === item.name ? 'text-white' : 'text-gray-500 hover:text-white',
-													'flex items-center justify-end rounded-md p-1 text-sm font-medium w-full'
-												)}
-												onClick={() => setActive(item.name)}
-												aria-current={item.current ? 'page' : undefined}
-											>
-												<img className='w-5 self-center' src={active === item.name ? item.logoSelected : item.logo} alt="" />
-											</Link>
-										))}
-									</div> 
+									user.on_board ? 
+										<div className="hidden sm:flex w-1/3">
+											{navigation.map((item, index) => (
+												<Link
+													key={item.name}
+													to={item.href}
+													className={classNames(
+														active === item.name ? 'text-white' : 'text-gray-500 hover:text-white',
+														'flex items-center justify-end rounded-md p-1 text-sm font-medium w-full'
+													)}
+													onClick={() => setActive(item.name)}
+													aria-current={item.current ? 'page' : undefined}
+												>
+													<img className='w-5 self-center' src={active === item.name ? item.logoSelected : item.logo} alt="" />
+												</Link>
+											))}
+										</div> 
+										: <></>
 									: 
 									<div className="hidden sm:flex justify-between gap-5">
 										<button
@@ -183,7 +185,22 @@ const NavBar = () => {
 								))}
 							</div>
 							:
-							<></>
+							<div className="flex flex-col sm:flex justify-between gap-5">
+								<button
+									key="signin"
+									className= 'text-white rounded-md p-1 text-sm font-medium'
+									onClick={() => props.setOpenModal('signin-modal')}
+								>
+									Sign In
+								</button>
+								<button
+									key="signup"
+									className= 'text-white rounded-md p-1 text-sm font-medium'
+									onClick={() => props.setOpenModal('signup-modal')}
+								>
+									Sign Up
+								</button>
+							</div>
 						}
           </Disclosure.Panel>
         </>

@@ -11,6 +11,7 @@ module.exports = {
 			'menuBg': '#3E4353',
 			'lightGray': '#919AAC'
 		},
+		
 		extend: {},
 	},
 	plugins: [require('flowbite/plugin')],
