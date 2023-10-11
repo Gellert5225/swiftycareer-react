@@ -121,9 +121,12 @@ const NavBar = () => {
                     src={Logo}
                     alt="Your Company"
                   />
-									{user ? <div className="ml-8 grow sm:grow-0 h-9"><SearchBar /></div> : <>Swifty Career</>}
+									{ user && user.on_board ? 
+										<div className="ml-8 grow sm:grow-0 h-9"><SearchBar /></div> 
+										: <p className='text-white ml-3 text-2xl font-thin'>Swifty Career</p>
+									}
                 </div>
-								{user ? 
+								{ user ? 
 									user.on_board ? 
 										<div className="hidden sm:flex w-1/3">
 											{navigation.map((item, index) => (
@@ -141,7 +144,7 @@ const NavBar = () => {
 												</Link>
 											))}
 										</div> 
-										: <></>
+									: <></>
 									: 
 									<div className="hidden sm:flex justify-between gap-5">
 										<button

@@ -44,11 +44,6 @@ const FeedPage = () => {
 		}
 	}, [user?.id]);
 
-	if (!user) {
-		console.log("no user!");
-		return <Navigate to="/" />
-	}
-
 	return (
 		<div className='bg-base-100'>
 			<div className='bg-base-100 max-w-6xl mx-auto pt-2 sm:px-6 lg:px-8 flex'>

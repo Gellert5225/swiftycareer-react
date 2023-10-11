@@ -4,10 +4,10 @@ import { AuthContext } from "../context/AuthContext";
 import { CurrentUser } from '../data/User'
 
 type Props = {
-  children?: React.ReactNode
+	children?: React.ReactNode
 };
 
-export const AuthProvider: React.FC<Props> = ({children}): JSX.Element => {
+export const AuthProvider: React.FC<Props> = ({ children }): JSX.Element => {
 	const { getItem } = useLocalStorage();
 
 	const localUser = localStorage.getItem('currentUser');
@@ -25,19 +25,19 @@ export const AuthProvider: React.FC<Props> = ({children}): JSX.Element => {
 		}
 	}, [user?.id])
 
-	const setUserData = (data : CurrentUser | undefined) => {
+	const setUserData = (data: CurrentUser | undefined) => {
 		setUser(data);
 	}
 
 	const contextValue = useMemo(
-    () => ({
-      user,
-      setUserData,
-    }),
-    [user]
-  );
+		() => ({
+			user,
+			setUserData,
+		}),
+		[user]
+	);
 
 	return (
-    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
-  );
+		<AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
+	);
 }
