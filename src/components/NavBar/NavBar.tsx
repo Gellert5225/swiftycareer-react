@@ -86,7 +86,7 @@ const NavBar = () => {
 
 			setItem("currentUser", JSON.stringify(data.info));
 			setOpenModal(undefined);
-			return <Navigate to="/feed" />
+			return <Navigate to="/onboarding" />
 		}).catch(err => {
 			console.error(err.message);
 			setError(err);
