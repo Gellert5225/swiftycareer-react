@@ -1,5 +1,3 @@
-import { runInThisContext } from "vm";
-
 export class CurrentUser {
 	id: string = "";
 	name: string = "";

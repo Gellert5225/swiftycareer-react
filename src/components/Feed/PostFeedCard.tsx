@@ -23,8 +23,6 @@ const PostFeedCard = () => {
 				const error = (data && data.error) || res.status;
 				throw new Error(error);
 			}
-
-			console.log(data);
 		}).catch(err => {
 			console.error(err.message);
 				const error = JSON.parse(err.message);

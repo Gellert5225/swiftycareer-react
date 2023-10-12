@@ -13,7 +13,7 @@ import likeFilled from '../../images/like-selected.png'
 import likeHollow from '../../images/like.png'
 import commentImage from '../../images/comment.png'
 import repostImage from '../../images/repost.png'
-import repostedImage from '../../images/repost-selected.png'
+// import repostedImage from '../../images/repost-selected.png'
 
 import { getTimeDiff } from '../../utils/date'
 
@@ -42,7 +42,6 @@ const FeedCard: FC<FeedProps> = ({feed}): JSX.Element => {
 				feed.liked_user_ids.push(user.id);
 				feed.like_count++;
 			}
-			console.log(user.id);
 			fetch(`${process.env.REACT_APP_FEED_URL}/${feed._id}/likes`, {
 				method: 'PUT',
 				mode: 'cors',
@@ -55,10 +54,7 @@ const FeedCard: FC<FeedProps> = ({feed}): JSX.Element => {
 			}).then(async res => {
 				const data = await res.json();
 
-				console.log(data);
-
 				if (!res.ok) {
-					console.log(res);
 					const error = data || res;
 					throw new Error(error);
 				}

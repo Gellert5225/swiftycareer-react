@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { Navigate } from 'react-router-dom';
 import FloatingInput from "../../components/Input/FloatingInput";
 import { AuthContext } from "../../context/AuthContext";

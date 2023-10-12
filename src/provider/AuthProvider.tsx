@@ -8,7 +8,7 @@ type Props = {
 };
 
 export const AuthProvider: React.FC<Props> = ({ children }): JSX.Element => {
-	const { getItem, removeItem } = useLocalStorage();
+	const { removeItem } = useLocalStorage();
 
 	const localUser = localStorage.getItem('currentUser');
 	const userObject = JSON.parse(localUser || "{}");
@@ -33,11 +33,15 @@ export const AuthProvider: React.FC<Props> = ({ children }): JSX.Element => {
 			setUser(new CurrentUser(data._id, data.username, data.email, data.session_id, data.profile_picture, data.on_board));
 
 		}).catch(err => {
-			const error = JSON.parse(err.message);
-			console.log(error)
-			if (error.code === 403 || error.code === 401) {
-				removeItem('currentUser');
-				setUser(undefined);
+			try {
+				const error = JSON.parse(err.message) || err.message;
+				console.log(error)
+				if (error.code === 403 || error.code === 401) {
+					removeItem('currentUser');
+					setUser(undefined);
+				}
+			} catch (error) {
+				console.log(error);
 			}
 		});
 		// const localUser = getItem('currentUser');

@@ -1,5 +1,5 @@
 import { ChangeEvent, useContext, useRef, useState } from 'react';
-import { Button, Modal } from 'flowbite-react';
+import { Modal } from 'flowbite-react';
 
 import { AuthContext } from "../../context/AuthContext";
 
@@ -88,7 +88,7 @@ const PostFeedModal = (props: {
 							<span onClick={() => removeImage(i)} className="hover:cursor-pointer leading-none absolute -translate-y-1/2 -translate-x-1/2">
 								<img className='w-4' src={deleteImage} alt="delete" />
 							</span>
-							<img className='item w-14 h-14' src={URL.createObjectURL(url)} alt="image" />
+							<img className='item w-14 h-14' src={URL.createObjectURL(url)} alt="img" />
 						</div>
 					))}
 				</div>

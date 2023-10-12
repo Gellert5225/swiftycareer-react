@@ -1,5 +1,5 @@
 import { useContext,  useState } from 'react';
-import { Navigate, useNavigate, Link } from "react-router-dom"
+import { Navigate, Link } from "react-router-dom"
 
 import { Disclosure } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
@@ -42,13 +42,10 @@ const NavBar = () => {
 			const data = isJson && await res.json();
 			
 			if (!res.ok) {
-				console.error("Error when logging in");
-				console.log(res);
 				const error = data || res;
 				throw new Error(JSON.stringify(error));
 			}
 
-			console.log(data);
 			setUserData(new CurrentUser(data.info._id, data.info.username, data.info.email, data.info.session_id, data.info.profile_picture, data.info.on_board));
 
 			setItem("currentUser", JSON.stringify(data.info));
@@ -75,13 +72,10 @@ const NavBar = () => {
 			const data = isJson && await res.json();
 			
 			if (!res.ok) {
-				console.error("Error when signing up");
-				console.log(res);
 				const error = data || res;
 				throw new Error(JSON.stringify(error));
 			}
 
-			console.log(data);
 			setUserData(new CurrentUser(data.info._id, data.info.username, data.info.email, data.info.session_id, data.info.profile_picture, data.info.on_board));
 
 			setItem("currentUser", JSON.stringify(data.info));

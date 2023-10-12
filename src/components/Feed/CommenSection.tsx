@@ -11,7 +11,6 @@ const CommentSection = ({ feedId } : { feedId: string }) => {
 	const { user } = useContext(AuthContext);
 
 	const postComment = (commentText : string) => {
-		console.log("Comment Text is " + commentText);
 		fetch(`${process.env.REACT_APP_FEED_URL}/${feedId}/comments`, {
 			method: 'POST',
 			mode: 'cors',
@@ -30,7 +29,6 @@ const CommentSection = ({ feedId } : { feedId: string }) => {
 				return Promise.reject(error);
 			}
 
-			console.log(data);
 			let commentListCopy = [...commentList];
 			commentListCopy.push(
 				new Comment(
@@ -61,29 +59,24 @@ const CommentSection = ({ feedId } : { feedId: string }) => {
 			}).then(async res => {
 				const data = await res.json();
 
-				console.log(data);
-
 				if (!res.ok) {
-					console.log(res);
 					const error = data || res;
 					return Promise.reject(error);
 				}
 				
 				setCommentList(data.info);
-
-				console.log(commentList);
 			}).catch(err => {
 				console.error(err);
 			});
 		}
-	}, [commentList.length]);
+	}, [feedId, user, JSON.stringify(commentList)]);
 
 	return (
 		<div className="flex flex-col px-4">
 			<div className="flex flex-row gap-2 items-center mb-2">
 				<img 
 					className="w-9 h-9 rounded-full border border-lightGray" 
-					src={`/${process.env.REACT_APP_FILE_URL}/${user?.profile_picture}`} 
+					src={`${process.env.REACT_APP_FILE_URL}/${user?.profile_picture}`} 
 					alt="123" 
 				/>
 				<CommentBox className="w-full grow" postComment={postComment} />
@@ -91,7 +84,7 @@ const CommentSection = ({ feedId } : { feedId: string }) => {
 			{commentList.map((v, i) => (
 				<div key={v._id} className="flex flex-row gap-2 mb-2 w-full">
 					<img 
-						className="w-9 h-9 rounded-full border border-lightGray" 
+						className="w-9 h-9 mt-2 rounded-full border border-lightGray" 
 						src={`${process.env.REACT_APP_FILE_URL}/${v.author.profile_picture}`} 
 						alt="123" 
 					/>

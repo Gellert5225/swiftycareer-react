@@ -1,5 +1,4 @@
 import { useEffect, useState, useContext } from 'react';
-import { Navigate } from 'react-router-dom';
 import FeedCard from '../../components/Feed/FeedCard';
 import PostFeedCard from '../../components/Feed/PostFeedCard';
 import { Feed } from '../../data/Feed';
@@ -23,11 +22,8 @@ const FeedPage = () => {
 				}
 			}).then(async res => {
 				const data = await res.json();
-				console.log(data);
 
 				if (!res.ok) {
-					console.error("Error when fetching feeds");
-					console.log(res);
 					const error = data || res;
 					throw new Error(JSON.stringify(error));
 				}
