@@ -41,7 +41,7 @@ const PostFeedCard = () => {
 			<div className="flex gap-2 items-center p-[15px] mb-3 bg-mainBlue rounded-lg">
 				<img
 					className="rounded-full w-[60px] border border-lightGray" 
-					src={`http://${process.env.REACT_APP_FILE_URL}/${user?.profile_picture}`} 
+					src={`${process.env.REACT_APP_FILE_URL}/${user?.profile_picture}`} 
 					alt="profile" 
 				/>
 				<div 

@@ -83,7 +83,7 @@ const CommentSection = ({ feedId } : { feedId: string }) => {
 			<div className="flex flex-row gap-2 items-center mb-2">
 				<img 
 					className="w-9 h-9 rounded-full border border-lightGray" 
-					src={`http://${process.env.REACT_APP_FILE_URL}/${user?.profile_picture}`} 
+					src={`/${process.env.REACT_APP_FILE_URL}/${user?.profile_picture}`} 
 					alt="123" 
 				/>
 				<CommentBox className="w-full grow" postComment={postComment} />
@@ -92,7 +92,7 @@ const CommentSection = ({ feedId } : { feedId: string }) => {
 				<div key={v._id} className="flex flex-row gap-2 mb-2 w-full">
 					<img 
 						className="w-9 h-9 rounded-full border border-lightGray" 
-						src={`http://${process.env.REACT_APP_FILE_URL}/${v.author.profile_picture}`} 
+						src={`${process.env.REACT_APP_FILE_URL}/${v.author.profile_picture}`} 
 						alt="123" 
 					/>
 					<div className="bg-menuBg grow rounded-lg">

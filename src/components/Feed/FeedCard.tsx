@@ -108,7 +108,7 @@ const FeedCard: FC<FeedProps> = ({feed}): JSX.Element => {
 			<div className="bg-transparent flex flex-row grow px-2 pt-2 items-center">
 				<img 
 					className="before:bg-mainBlue rounded-full w-10 h-10 align-middle border border-lightGray" 
-					src={`http://${process.env.REACT_APP_FILE_URL}/${feed.author.profile_picture}`} 
+					src={`${process.env.REACT_APP_FILE_URL}/${feed.author.profile_picture}`} 
 					alt="profile" 
 				/>
 				<div className="flex flex-col px-2">
@@ -136,7 +136,7 @@ const FeedCard: FC<FeedProps> = ({feed}): JSX.Element => {
 					{feed.images.map((image, index) => (
 						<img 
 							key={image} 
-							src={`http://${process.env.REACT_APP_FILE_URL}/${image}`} 
+							src={`${process.env.REACT_APP_FILE_URL}/${image}`} 
 							className="aspect-square object-cover" 
 							alt=""
 						/>
