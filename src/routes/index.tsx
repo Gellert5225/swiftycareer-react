@@ -35,7 +35,7 @@ const Routes = () => {
 
 	const router = createBrowserRouter([
     ...(!user ? routesForNotAuthenticatedOnly : []),
-		...(!user?.on_board ? routesForNotOnboardedOnly : []),
+		...(user && !user.on_board ? routesForNotOnboardedOnly : []),
     ...routesForAuthenticatedOnly,
   ]);
 
