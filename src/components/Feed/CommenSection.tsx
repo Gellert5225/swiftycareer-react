@@ -12,7 +12,7 @@ const CommentSection = ({ feedId } : { feedId: string }) => {
 
 	const postComment = (commentText : string) => {
 		console.log("Comment Text is " + commentText);
-		fetch(`http://${process.env.REACT_APP_FEED_URL}/${feedId}/comments`, {
+		fetch(`${process.env.REACT_APP_FEED_URL}/${feedId}/comments`, {
 			method: 'POST',
 			mode: 'cors',
 			credentials: 'include',
@@ -50,7 +50,7 @@ const CommentSection = ({ feedId } : { feedId: string }) => {
 
 	useEffect(() => {
 		if (user) {
-			fetch(`http://${process.env.REACT_APP_FEED_URL}/${feedId}/comments`, {
+			fetch(`${process.env.REACT_APP_FEED_URL}/${feedId}/comments`, {
 				method: 'GET',
 				mode: 'cors',
 				credentials: 'include',

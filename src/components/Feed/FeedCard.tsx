@@ -43,7 +43,7 @@ const FeedCard: FC<FeedProps> = ({feed}): JSX.Element => {
 				feed.like_count++;
 			}
 			console.log(user.id);
-			fetch(`http://${process.env.REACT_APP_FEED_URL}/${feed._id}/likes`, {
+			fetch(`${process.env.REACT_APP_FEED_URL}/${feed._id}/likes`, {
 				method: 'PUT',
 				mode: 'cors',
 				credentials: 'include',

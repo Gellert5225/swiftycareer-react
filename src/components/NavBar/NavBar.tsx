@@ -28,7 +28,7 @@ const NavBar = () => {
 	const { user, setUserData } = useContext(AuthContext);
 
 	const handleLogin = async (username: string, password: string) => {
-		fetch(`http://${process.env.REACT_APP_USER_URL}/signin`, {
+		fetch(`${process.env.REACT_APP_USER_URL}/signin`, {
 			method: 'POST',
 			mode: 'cors',
 			credentials: 'include',
@@ -61,7 +61,7 @@ const NavBar = () => {
 	}
 
 	const handleSignUp = async (email: string, username: string, password: string) => {
-		fetch(`http://${process.env.REACT_APP_USER_URL}/signup`, {
+		fetch(`${process.env.REACT_APP_USER_URL}/signup`, {
 			method: 'POST',
 			mode: 'cors',
 			credentials: 'include',

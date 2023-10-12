@@ -10,7 +10,7 @@ const PostFeedCard = () => {
 	const modalProps = { openPostFeed, setOpenPostFeed };
 
 	const postFeed = (form: FormData) => {
-		fetch(`http://${process.env.REACT_APP_FEED_URL}/`, {
+		fetch(`${process.env.REACT_APP_FEED_URL}/`, {
 			method: 'POST',
 			mode: 'cors',
 			credentials: 'include',

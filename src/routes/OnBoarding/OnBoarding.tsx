@@ -35,7 +35,7 @@ const OnBoarding = () => {
 
 	const handleFinish = async () => {
 		setSubmitted(true);
-		fetch(`http://${process.env.REACT_APP_USER_URL}/${user?.id}/onboard`, {
+		fetch(`${process.env.REACT_APP_USER_URL}/${user?.id}/onboard`, {
 			method: 'PUT',
 			mode: 'cors',
 			credentials: 'include',

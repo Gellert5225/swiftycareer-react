@@ -15,7 +15,7 @@ export const AuthProvider: React.FC<Props> = ({ children }): JSX.Element => {
 	const [user, setUser] = useState<CurrentUser | undefined>(localUser ? new CurrentUser(userObject._id, userObject.username, userObject.email, userObject.session_id, userObject.profile_picture, userObject.on_board) : undefined);
 
 	useEffect(() => {
-		fetch(`http://${process.env.REACT_APP_USER_URL}/checkAuth`, {
+		fetch(`${process.env.REACT_APP_USER_URL}/checkAuth`, {
 			method: 'GET',
 			mode: 'cors',
 			credentials: 'include',
