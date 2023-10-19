@@ -3,9 +3,11 @@ import { Navigate, Link } from "react-router-dom"
 
 import { Disclosure } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Dropdown } from 'flowbite-react';
  
 import Logo from '../../images/uniplus.png'
 
+import ProfileDropdown from './ProfileDropdown';
 import SearchBar from "../SearchBar/SearchBar";
 import navigation from './Navigations'
 import LoginModal from '../Modal/LoginModal';
@@ -124,18 +126,34 @@ const NavBar = () => {
 									user.on_board ? 
 										<div className="hidden sm:flex w-1/3">
 											{navigation.map((item, index) => (
-												<Link
-													key={item.name}
-													to={item.href}
-													className={classNames(
-														active === item.name ? 'text-white' : 'text-gray-500 hover:text-white',
-														'flex items-center justify-end rounded-md p-1 text-sm font-medium w-full'
-													)}
-													onClick={() => setActive(item.name)}
-													aria-current={item.current ? 'page' : undefined}
-												>
-													<img className='w-5 self-center' src={active === item.name ? item.logoSelected : item.logo} alt="" />
-												</Link>
+												index !== 4 ?
+													<Link
+														key={item.name}
+														to={item.href}
+														className={classNames(
+															active === item.name ? 'text-white' : 'text-gray-500 hover:text-white',
+															'flex items-center justify-end rounded-md p-1 text-sm font-medium w-full'
+														)}
+														onClick={() => setActive(item.name)}
+														aria-current={item.current ? 'page' : undefined}
+													>
+														<img className='w-5 self-center' src={active === item.name ? item.logoSelected : item.logo} alt="" />
+													</Link>
+													: 
+													<Dropdown 
+														key={item.name}
+														label="" 
+														dismissOnClick={false} 
+														renderTrigger={() => (
+															<div className='flex items-center justify-end w-full'>
+																<img className='w-6 self-center rounded-full border border-lightGray' src={active === item.name ? item.logoSelected : item.logo} alt="" />
+															</div>
+														)}
+													>
+														<div>abd</div>
+														<div>abd</div>
+													</Dropdown>
+												
 											))}
 										</div> 
 									: <></>

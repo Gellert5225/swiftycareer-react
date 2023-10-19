@@ -36,7 +36,7 @@ const PostFeedCard = () => {
 	return (
 		<>
 			<PostFeedModal onPost={postFeed} open={openPostFeed || ""} setOpen={setOpenPostFeed} />
-			<div className="flex gap-2 items-center p-[15px] mb-3 bg-mainBlue rounded-lg">
+			<div className="flex gap-2 items-center p-[15px] mb-3 bg-mainBlue md:rounded-lg">
 				<img
 					className="rounded-full w-[60px] border border-lightGray" 
 					src={`${process.env.REACT_APP_FILE_URL}/${user?.profile_picture}`} 

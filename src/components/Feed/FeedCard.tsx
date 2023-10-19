@@ -73,7 +73,7 @@ const FeedCard: FC<FeedProps> = ({feed}): JSX.Element => {
 
 	const customTheme: CustomFlowbiteTheme['carousel'] = {
 		"root": {
-			"base": "relative h-full w-full",
+			"base": "relative h-full w-full px-2",
 			"leftControl": "absolute top-0 left-0 flex h-full items-center justify-center px-4 focus:outline-none",
 			"rightControl": "absolute top-0 right-0 flex h-full items-center justify-center px-4 focus:outline-none"
 		},
@@ -100,7 +100,7 @@ const FeedCard: FC<FeedProps> = ({feed}): JSX.Element => {
 	};
 
 	return (
-		<div className="flex flex-col justify-between mb-3 bg-mainBlue rounded-lg">
+		<div className="flex flex-col justify-between mb-3 bg-mainBlue md:rounded-lg">
 			<div className="bg-transparent flex flex-row grow px-2 pt-2 items-center">
 				<img 
 					className="before:bg-mainBlue rounded-full w-10 h-10 align-middle border border-lightGray" 
