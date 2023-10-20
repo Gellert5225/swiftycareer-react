@@ -67,7 +67,7 @@ const PostFeedModal = (props: {
 	}
 
 	return (
-		<Modal show={props.open === 'post-feed-modal'} size="lg" popup onClose={() => props.setOpen(undefined)}>
+		<Modal dismissible show={props.open === 'post-feed-modal'} size="lg" popup onClose={() => props.setOpen(undefined)}>
 			<Modal.Header className="border-b">
 				<h3 className='pl-2 pt-1'>Create a post</h3>
 			</Modal.Header>
