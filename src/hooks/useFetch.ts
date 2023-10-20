@@ -60,7 +60,6 @@ export function useFetch<T = unknown>(
 			}
 
 			try {
-				console.log(url);
 				const response = await fetch(url, options)
 				if (!response.ok) {
 					throw new Error(response.statusText)

@@ -13,7 +13,7 @@ export const AuthProvider: React.FC<Props> = ({ children }): JSX.Element => {
 
 	const localUser = localStorage.getItem('currentUser');
 	const userObject = JSON.parse(localUser || "{}");
-	const [user, setUser] = useState<CurrentUser | undefined>(localUser ? new CurrentUser(userObject._id, userObject.username, userObject.email, userObject.session_id, userObject.profile_picture, userObject.on_board) : undefined);
+	const [user, setUser] = useState<CurrentUser | undefined>(localUser ? new CurrentUser(userObject._id, userObject.username, userObject.email, userObject.display_name, userObject.position, userObject.session_id, userObject.profile_picture, userObject.on_board) : undefined);
 
 	const {data, error} = useFetch<CurrentUser>(
 		`${process.env.REACT_APP_USER_URL}/checkAuth`,
