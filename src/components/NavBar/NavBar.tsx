@@ -195,7 +195,7 @@ const NavBar = () => {
 										}}
 										aria-current={item.current ? 'page' : undefined}
 									>
-										{index === 4 ? user.name : item.name}
+										{index === 4 ? user.username : item.name}
 									</Disclosure.Button>
 								))}
 							</div>

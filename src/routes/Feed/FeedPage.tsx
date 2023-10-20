@@ -1,21 +1,24 @@
-import { useEffect, useState } from 'react';
 import FeedCard from '../../components/Feed/FeedCard';
 import PostFeedCard from '../../components/Feed/PostFeedCard';
 import { Feed } from '../../data/Feed';
 import { useFetch } from '../../hooks/useFetch';
-import { ApiResponse } from '../../data/ApiResponse';
+import FeedSkeleton from '../../components/Feed/FeedSkeleton'
 
 const FeedPage = () => {
-	let [feeds, setFeeds] = useState<Array<Feed>>([]);
-
-	const response: ApiResponse = useFetch(
-		`${process.env.REACT_APP_FEED_URL}`
+	const {data, error} = useFetch<Feed[]>(
+		`${process.env.REACT_APP_FEED_URL}`,
+		{
+			method: 'GET',
+			mode: 'cors',
+			credentials: 'include',
+			headers: {          
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			}
+		}
 	);
-	
-	useEffect(() => {
-		console.log(response);
-		if (!response.error && response.data && !response.isLoading) setFeeds(response.data.info);
-	}, [response]);
+
+	if (error) return <>{error.message}</>
 
 	return (
 		<div className='bg-base-100'>
@@ -23,9 +26,9 @@ const FeedPage = () => {
 				<div className='bg-red-100 grow-0 shrink-0 w-60 hidden md:block'>left</div>
 				<div className='grow px-0 md:px-8'>
 					<PostFeedCard />
-					{ response.isLoading ? <span>Loading.....</span> :
-						response.error ? <></> :
-						feeds.map((feed, index) => (
+					{ error ? <></> :
+						!data ? <FeedSkeleton /> :
+						data.map((feed, index) => (
 							<FeedCard
 								key={index}
 								feed={feed} />

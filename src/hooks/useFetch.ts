@@ -1,51 +1,91 @@
-import { useState, useEffect, useContext } from 'react';
-import { AuthContext } from "../context/AuthContext";
+import { DependencyList, useEffect, useReducer, useRef } from 'react'
 
-import { ApiResponse } from "../data/ApiResponse";
+interface State<T> {
+	data?: T
+	error?: Error
+}
 
-export const useFetch = (url: string): ApiResponse => {
-	const [status, setStatus] = useState<Number>(0);
-	const [statusText, setStatusText] = useState<String>('');
-	const [data, setData] = useState<any>();
-	const [error, setError] = useState<any>();
-	const [isLoading, setIsLoading] = useState<boolean>(false);
+type Cache<T> = { [url: string]: T }
 
-	const { user } = useContext(AuthContext);
+// discriminated union type
+type Action<T> =
+	| { type: 'loading' }
+	| { type: 'fetched'; payload: T }
+	| { type: 'error'; payload: Error }
+
+export function useFetch<T = unknown>(
+	url?: string,
+	options?: RequestInit,
+	deps?: DependencyList
+): State<T> {
+	const cache = useRef<Cache<T>>({})
+
+	// Used to prevent state update if the component is unmounted
+	const cancelRequest = useRef<boolean>(false)
+
+	const initialState: State<T> = {
+		error: undefined,
+		data: undefined,
+	}
+
+	// Keep state logic separated
+	const fetchReducer = (state: State<T>, action: Action<T>): State<T> => {
+		switch (action.type) {
+			case 'loading':
+				return { ...initialState }
+			case 'fetched':
+				return { ...initialState, data: action.payload }
+			case 'error':
+				return { ...initialState, error: action.payload }
+			default:
+				return state
+		}
+	}
+
+	const [state, dispatch] = useReducer(fetchReducer, initialState)
 
 	useEffect(() => {
-		const getAPIData = async () => {
-			setIsLoading(true);
-			try {
-				const res = await fetch(
-					url, 
-					{
-						method: 'GET',
-						mode: 'cors',
-						credentials: 'include',
-						headers:{
-							'Accept': 'application/json',
-							'Content-Type': 'application/json'
-						}
-					}
-				);
-				const json = await res.json();
-				if (!res.ok) {
-					const error = json || res;
-					throw new Error(JSON.stringify(error));
-				}
-				setStatus(res.status);
-				setStatusText(res.statusText);
-				setData(json);
-			} catch (err: any) {
-				const error = JSON.parse(err.message);
-				setError(error);
-			}
-			setIsLoading(false);
-		};
-		if (user) {
-			getAPIData();
-		}
-	}, [url]);
+		// Do nothing if the url is not given
+		if (!url) return
 
-	return { status, statusText, data, error, isLoading };
-};
+		cancelRequest.current = false
+
+		const fetchData = async () => {
+			dispatch({ type: 'loading' })
+
+			// If a cache exists for this url, return it
+			if (cache.current[url]) {
+				dispatch({ type: 'fetched', payload: cache.current[url] })
+				return
+			}
+
+			try {
+				console.log(url);
+				const response = await fetch(url, options)
+				if (!response.ok) {
+					throw new Error(response.statusText)
+				}
+
+				const data = (await response.json()).info as T
+				cache.current[url] = data
+				if (cancelRequest.current) return
+
+				dispatch({ type: 'fetched', payload: data })
+			} catch (error) {
+				if (cancelRequest.current) return
+				dispatch({ type: 'error', payload: error as Error })
+			}
+		}
+
+		void fetchData()
+
+		// Use the cleanup function for avoiding a possibly...
+		// ...state update after the component was unmounted
+		return () => {
+			cancelRequest.current = true
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, deps ? [...deps, url] : [url])
+
+	return state
+}

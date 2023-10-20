@@ -1,16 +1,16 @@
 export class CurrentUser {
 	id: string = "";
-	name: string = "";
+	username: string = "";
 	email: string = "";
-	sessionId: string = "";
+	session_id: string = "";
 	profile_picture = "";
 	on_board = false;
 
-	constructor(id: string, name: string, email: string, sessionId: string, profile_picture: string, on_board: boolean) {
+	constructor(id: string, username: string, email: string, sessionId: string, profile_picture: string, on_board: boolean) {
 		this.id = id;
-		this.name = name;
+		this.username = username;
 		this.email = email;
-		this.sessionId = sessionId;
+		this.session_id = sessionId;
 		this.profile_picture = profile_picture;
 		this.on_board = on_board;
 	}
