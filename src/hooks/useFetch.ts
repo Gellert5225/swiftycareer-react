@@ -18,6 +18,7 @@ export function useFetch<T = unknown>(
 	options?: RequestInit,
 	deps?: DependencyList
 ): State<T> {
+	console.log("useFetch");
 	const cache = useRef<Cache<T>>({})
 
 	// Used to prevent state update if the component is unmounted
@@ -44,39 +45,54 @@ export function useFetch<T = unknown>(
 
 	const [state, dispatch] = useReducer(fetchReducer, initialState)
 
-	useEffect(() => {
-		// Do nothing if the url is not given
-		if (!url) return
+	console.log(url)
+	console.log(cache.current); 
+	console.log(cache.current[url!]); 
 
-		cancelRequest.current = false
+	const fetchData = async () => {
+		console.log("fetch data");
+		if (!url) return;
+		dispatch({ type: 'loading' })
 
-		const fetchData = async () => {
-			dispatch({ type: 'loading' })
-
-			// If a cache exists for this url, return it
-			if (cache.current[url]) {
-				dispatch({ type: 'fetched', payload: cache.current[url] })
-				return
-			}
-
-			try {
-				const response = await fetch(url, options)
-				if (!response.ok) {
-					throw new Error(response.statusText)
-				}
-
-				const data = (await response.json()).info as T
-				cache.current[url] = data
-				if (cancelRequest.current) return
-
-				dispatch({ type: 'fetched', payload: data })
-			} catch (error) {
-				if (cancelRequest.current) return
-				dispatch({ type: 'error', payload: error as Error })
-			}
+		// If a cache exists for this url, return it
+		if (cache.current[url]) {
+			console.log('returning cached');
+			dispatch({ type: 'fetched', payload: cache.current[url] })
+			return
 		}
 
-		void fetchData()
+		console.log('fetching');
+		try {
+			const response = await fetch(url, options)
+			if (!response.ok) {
+				throw new Error(JSON.stringify(
+					{ 
+						status: response.status, 
+						text: response.statusText 
+					}
+				));
+			}
+
+			const data = (await response.json()).info as T
+			cache.current[url] = data
+			console.log("fetched success");
+			if (cancelRequest.current) return
+
+			dispatch({ type: 'fetched', payload: data })
+		} catch (error) {
+			console.log("fetched failed");
+			if (cancelRequest.current) return
+			dispatch({ type: 'error', payload: error as Error })
+		}
+	}
+
+	useEffect(() => {
+		// Do nothing if the url is not given
+
+		console.log('useEffect');
+		cancelRequest.current = false
+
+		fetchData();
 
 		// Use the cleanup function for avoiding a possibly...
 		// ...state update after the component was unmounted
@@ -84,7 +100,7 @@ export function useFetch<T = unknown>(
 			cancelRequest.current = true
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, deps ? [...deps, url] : [url])
+	}, [url])
 
 	return state
 }

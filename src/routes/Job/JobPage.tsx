@@ -91,7 +91,7 @@ const JobPage = () => {
 					</div>
 				</div>
 				<div className='grow px-1 sm:px-8'>
-
+					
 				</div>
 				<div className='bg-red-100 grow-0 shrink-0 w-60 hidden lg:block'>right</div>
 			</div>

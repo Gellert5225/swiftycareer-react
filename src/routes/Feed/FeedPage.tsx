@@ -18,7 +18,10 @@ const FeedPage = () => {
 		}
 	);
 
-	if (error) return <>{error.message}</>
+	if (error) {
+		console.log(error);
+		return <>{error.message}</>
+	}
 
 	return (
 		<div className='bg-base-100'>
