@@ -16,6 +16,7 @@ export const AuthProvider: React.FC<Props> = ({ children }): JSX.Element => {
 	const [user, setUser] = useState<CurrentUser | undefined>(localUser ? new CurrentUser(userObject._id, userObject.username, userObject.email, userObject.display_name, userObject.position, userObject.session_id, userObject.profile_picture, userObject.on_board) : undefined);
 
 	const {data, error} = useFetch<CurrentUser>(
+		'authData',
 		`${process.env.REACT_APP_USER_URL}/checkAuth`,
 		{
 			method: 'GET',
@@ -25,7 +26,8 @@ export const AuthProvider: React.FC<Props> = ({ children }): JSX.Element => {
 				'Accept': 'application/json',
 				'Content-Type': 'application/json'
 			}
-		}
+		},
+		0
 	);
 
 	useEffect(() => {
@@ -50,34 +52,25 @@ export const AuthProvider: React.FC<Props> = ({ children }): JSX.Element => {
 	// 			'Content-Type': 'application/json'
 	// 		}
 	// 	}).then(async res => {
-	// 		const data = await res.json();
+	// 		const data = (await res.json()).info;
 	// 		if (!res.ok) {
 	// 			const error = JSON.stringify(data) || JSON.stringify(res);
 	// 			throw new Error(error);
 	// 		}
 
-	// 		setUser(new CurrentUser(data._id, data.username, data.email, data.session_id, data.profile_picture, data.on_board));
-
+	// 		setUser(new CurrentUser(data._id, data.username, data.email, data.display_name, data.position, data.session_id, data.profile_picture, data.on_board));
+	// 		setItem("currentUser", JSON.stringify(data));
 	// 	}).catch(err => {
 	// 		try {
 	// 			const error = JSON.parse(err.message) || err.message;
-	// 			console.log(error)
 	// 			if (error.code === 403 || error.code === 401) {
 	// 				removeItem('currentUser');
 	// 				setUser(undefined);
 	// 			}
 	// 		} catch (error) {
-	// 			console.log(error);
+	// 			//console.log(error);
 	// 		}
 	// 	});
-	// 	// const localUser = getItem('currentUser');
-	// 	// if (localUser) {
-	// 	// 	const userObject = JSON.parse(localUser || "{}");
-	// 	// 	setUser(new CurrentUser(userObject._id, userObject.username, userObject.email, userObject.session_id, userObject.profile_picture, userObject.on_board));
-	// 	// } else {
-	// 	// 	console.log("no local user found");
-	// 	// 	setUser(undefined);
-	// 	// }
 	// }, [user?.id])
 
 	const setUserData = (data: CurrentUser | undefined) => {

@@ -5,7 +5,8 @@ import { useFetch } from '../../hooks/useFetch';
 import FeedSkeleton from '../../components/Feed/FeedSkeleton'
 
 const FeedPage = () => {
-	const {data, error} = useFetch<Feed[]>(
+	const {isLoading, data, error} = useFetch<Feed[]>(
+		'feedData',
 		`${process.env.REACT_APP_FEED_URL}`,
 		{
 			method: 'GET',
@@ -14,10 +15,9 @@ const FeedPage = () => {
 			headers: {          
 				'Accept': 'application/json',
 				'Content-Type': 'application/json'
-			}
+			},
 		}
 	);
-
 	if (error) {
 		console.log(error);
 		return <>{error.message}</>
@@ -30,8 +30,8 @@ const FeedPage = () => {
 				<div className='grow px-0 md:px-8'>
 					<PostFeedCard />
 					{ error ? <></> :
-						!data ? <FeedSkeleton /> :
-						data.map((feed, index) => (
+						isLoading ? <FeedSkeleton /> :
+						data!.map((feed, index) => (
 							<FeedCard
 								key={index}
 								feed={feed} />
